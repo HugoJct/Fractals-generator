@@ -1,3 +1,17 @@
+plugins {
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+javafx {
+	version = "17"
+	modules = [ 'javafx.base' ]
+}
+
+repositories {
+	mavenCentral()
+}
+
 apply plugin: 'java'
 apply plugin: 'application'
 
