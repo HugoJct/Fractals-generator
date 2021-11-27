@@ -30,7 +30,7 @@ public class Complex {
 	}
 
 	public Complex divide(Complex x) {	// I don't remember how to do it 
-		return 0;
+		return null;
 	}
 	
 	//Getters
