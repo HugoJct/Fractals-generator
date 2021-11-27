@@ -1,0 +1,9 @@
+*.backup
+
+### Java ###
+*.class
+
+### Gradle ###
+.gradle
+**/build/
+
