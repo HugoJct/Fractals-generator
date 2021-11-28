@@ -10,42 +10,45 @@ public class Main {
 		
 		//System.out.println(new Complex(4,2).times(new Complex(4,-2)));
 		
-		double x1 = -1;
-		double x2 = 1;
-		double y1 = -1;
-		double y2 = 1;
+		double x1 = -0.1;
+		double x2 = 0.1;
+		double y1 = -0.1;
+		double y2 = 0.1;
 		
-		double zoom = 300;
-		double imagex=(x2-x1)*zoom;
-		double imagey=(y2-y1)*zoom;
+		double gap = 0.0001;
+
+		double imagex=(x2-x1)/gap;
+		double imagey=(y2-y1)/gap;
 		
 		var img=new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
 		int r = 64; int g = 224; int b = 208; //turquoise
 		int col = (r << 16) | (g << 8) | b;
-		File f = new File("MyFile2.png");
+		File f = new File("MyFile.png");
 		
 		
 		double i = x1;
-		while(i < x2) {
+		while(i < x2-gap) {
 			double j = y1;
-			while(j < y2) {
+			while(j < y2-gap) {
 				
 				Complex c = new Complex(i,j);
 				int k = divergenceIndex(c);
 				
-			//	System.out.println(k);
+				System.out.println("x: "+imagex+" y: "+imagey+" "+(i-x1)/gap+" "+(j-y1)/gap);
+
 				
-				if(k == 1000)
-					col = 255 | 0 | 0;
-				else
+				if(k == 1000) {
+					img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
+				} else {
 					col = 0 | 0 | (k*255/1000);
+					img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
+				}
 				
-				img.setRGB((int)((i-x1)*zoom), (int)((j-y1)*zoom), RGBFromIndex(k));
 				
 				
-				j+= 1/imagey;
+				j += gap;
 			}
-			i+=1/imagex;
+			i += gap;
 		}
 		try {
 			ImageIO.write(img, "PNG", f);
