@@ -15,4 +15,4 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Main'
+mainClassName = 'application.Main'
