@@ -1,11 +1,15 @@
 package view;
 
+import java.util.Objects;
+
 import javax.swing.text.View;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class ViewManager {
     private AnchorPane mainPane;
@@ -13,14 +17,16 @@ public class ViewManager {
     private Stage mainStage;
 
     public ViewManager() {
-        mainPane = new AnchorPane();
-        mainScene = new Scene(mainPane, 800, 600);
-        mainStage = new Stage();
-        mainStage.setScene(mainScene);
-    }
+        try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/View.fxml"));
+            Stage primaryStage = new Stage();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
-	public Stage getMainStage() {
-		return mainStage;
-	}
+    }
 
 }

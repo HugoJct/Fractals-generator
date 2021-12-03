@@ -23,9 +23,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			ViewManager view = new ViewManager();
-			primaryStage = view.getMainStage();
-			primaryStage.show();
+			new ViewManager();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -34,7 +32,7 @@ public class Main extends Application {
 			String[] cpxValAsString = {args[1],args[2]};
 			new FractController(args[1], args[2]);
 		} else { */
-			new FractController();
+			//new FractController();
 		// }	
 	}
 
