@@ -18,7 +18,7 @@ public class ViewManager {
 
     public ViewManager() {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/View.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("src/main/java/view/View.fxml"));
             Stage primaryStage = new Stage();
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
