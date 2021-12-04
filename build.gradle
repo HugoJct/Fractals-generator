@@ -12,6 +12,15 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+  main {
+    resources {
+        srcDirs = ["src/main/fxml"]
+        includes = ["**/*.fxml"]
+    }
+  }
+}
+
 apply plugin: 'java'
 apply plugin: 'application'
 
