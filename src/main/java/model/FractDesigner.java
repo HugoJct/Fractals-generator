@@ -7,7 +7,9 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-public class FractDesigner implements Runnable {
+import model.FractThread;
+
+public class FractDesigner {
     
     private double real;
 	private double imaginary;
@@ -79,15 +81,29 @@ public class FractDesigner implements Runnable {
 		}
 	}	
 	
+    static boolean isPowerOfTwo(int n) {
+        return (int)(Math.ceil((Math.log(n) / Math.log(2))))
+            == (int)(Math.floor(((Math.log(n) / Math.log(2)))));
+    }
+
 	private void createFract() {
 
 		img =new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
 		double standardDevX = standardDev(x1, x2);
 		double standardDevY = standardDev(y1, y2);
-		// we want nbrThread pair
-		if (nbrThreads%2==1) {
+
+		// we want nbrThread power of two
+		if (!isPowerOfTwo(nbrThreads)) {
 			nbrThreads+=1;
+			while (!isPowerOfTwo(nbrThreads)) {
+				nbrThreads+=1;
+			}
 		}
+
+		double portionX = standardDevX/nbrThreads;
+		double portionY = standardDevY/nbrThreads;
+		double startX = x1;
+		double startY = y1;
 
 		/*
 		 *
@@ -97,10 +113,13 @@ public class FractDesigner implements Runnable {
 		 */
 
 		for (int i = 0; i<nbrThreads ; i++) {
-			Thread t = new Thread();
+			FractThread t = new FractThread(startX, portionX, startY, portionY, gap);
 			t.start();
+			startX += portionX;
+			portionX += portionX;
+			startY += portionY;
+			portionY += portionY;
 		} 
-
 		try {
 			ImageIO.write(img, "PNG", f);
 		} catch (IOException e) {
@@ -129,26 +148,5 @@ public class FractDesigner implements Runnable {
 		}
 		return (r << 16) | (g << 8) | b;
 	}
-	@Override
-	public void run() {
-		for (double i = x1 ; i < x2-gap ; i+= gap) {
-			for (double j = y1 ; j < y2-gap ; j+= gap) {
-				
-				c = new Complex(i,j);
-				k = divergenceIndex(c);
-				
-				System.out.println("x: "+imagex+" y: "+imagey+" "+(i-x1)/gap+" "+(j-y1)/gap);
 
-				
-				if(k == 1000) {
-					img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
-				} else {
-					col = 0 | 0 | (k*255/1000);
-					img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
-				}
-				
-			}
-		}
-		
-	}
 }
