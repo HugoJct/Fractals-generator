@@ -17,7 +17,13 @@ public class Main extends Application {
 	AutoCloseable controller;
 
 	public static void main(String[] args) {
-		launch(args);
+		//launch(args);
+		if (args.length == 3) {
+			String[] cpxValAsString = {args[1],args[2]};
+			new FractController(args[1], args[2]);
+		} else {
+			new FractController();
+		}	
 	}
 
 	@Override
@@ -27,13 +33,6 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-
-		/* if (args.length == 3) {
-			String[] cpxValAsString = {args[1],args[2]};
-			new FractController(args[1], args[2]);
-		} else { */
-			//new FractController();
-		// }	
 	}
 
     @Override
