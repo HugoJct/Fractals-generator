@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="200.0" layoutY="-3.0" prefHeight="557.0" prefWidth="563.0" />
+      <VBox prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #3F2B63;">
+         <children>
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="215.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="105.0" prefWidth="200.0" translateY="20.0">
+               <children>
+                  <HBox prefHeight="49.0" prefWidth="200.0" translateX="5.0" translateY="5.0">
+                     <children>
+                        <Label text="Fractal " textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <ComboBox prefHeight="25.0" prefWidth="106.0" promptText="        " translateX="20.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" translateX="5.0" translateY="15.0">
+                     <children>
+                        <Label text="Cpx expr" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="48.0" translateX="10.0" />
+                        <TextField prefHeight="25.0" prefWidth="46.0" translateX="20.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" translateX="5.0" translateY="5.0">
+                     <children>
+                        <Label text="Esc lvl" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="49.0" translateX="26.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="120.0" prefWidth="200.0" translateY="40.0">
+               <children>
+                  <HBox prefHeight="31.0" prefWidth="200.0" translateX="5.0">
+                     <children>
+                        <Label text="Center" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="53.0" translateX="22.0" />
+                        <TextField prefHeight="25.0" prefWidth="51.0" translateX="30.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="200.0" translateX="5.0">
+                     <children>
+                        <Label text="Span" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="53.0" translateX="34.0" />
+                        <TextField prefHeight="25.0" prefWidth="51.0" translateX="42.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Img dim" textFill="WHITE" translateX="5.0">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="53.0" translateX="15.0" />
+                        <TextField prefHeight="25.0" prefWidth="51.0" translateX="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="27.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Img depth" textFill="WHITE" translateX="5.0">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="49.0" translateX="32.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="139.0" prefWidth="200.0" translateY="60.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="197.0" text="Zoom" textAlignment="CENTER" textFill="#cd0000">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="27.0" prefWidth="200.0" translateY="10.0">
+                     <children>
+                        <Label text="zoom coef" textFill="WHITE" translateX="5.0">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="25.0" prefWidth="49.0" translateX="32.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="19.0" prefWidth="200.0" translateY="10.0">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="61.0" text="+" textAlignment="CENTER" translateX="20.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="61.0" text="-" textAlignment="CENTER" translateX="60.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox prefHeight="29.0" prefWidth="200.0" translateY="50.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="179.0" text="generate" translateX="10.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
