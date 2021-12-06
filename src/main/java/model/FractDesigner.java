@@ -88,6 +88,14 @@ public class FractDesigner implements Runnable {
 		if (nbrThreads%2==1) {
 			nbrThreads+=1;
 		}
+
+		/*
+		 *
+		 * Ici, répartir standardDev en nbrThreads par égales
+		 * pour répartir l'execution dans des tâches 
+		 *  
+		 */
+
 		for (int i = 0; i<nbrThreads ; i++) {
 			Thread t = new Thread();
 			t.start();
@@ -97,21 +105,9 @@ public class FractDesigner implements Runnable {
 			ImageIO.write(img, "PNG", f);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} /* finally {
-			System.out.println("fractal generated");
-		} */
+		}
 	}	
 
-	/* static boolean checkIfFileExist(File[] files) {
-	    for (File file : files) {
-	        if (file.isDirectory()) {
-	            System.out.println("Directory: " + file.getName());
-	            showFiles(file.listFiles()); // Calls same method again.
-	        } else {
-	            System.out.println("File: " + file.getName());
-	        }
-    	}
-	} */
 	
 	private Complex f(Complex c) {
 		return c.times(c).plus(new Complex(real,imaginary));
