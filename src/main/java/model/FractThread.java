@@ -40,8 +40,7 @@ public class FractThread extends Thread {
           k = divergenceIndex(c);
           
           System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
-
-          
+          //System.out.println(Thread.currentThread().getName());
           if(k == 1000) {
             fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
           } else {

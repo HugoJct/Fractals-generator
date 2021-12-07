@@ -3,11 +3,8 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.imageio.ImageIO;
-
-import model.FractThread;
 
 public class FractDesigner {
     
@@ -19,20 +16,14 @@ public class FractDesigner {
 	private double y1 = -0.1;
 	private double y2 = 0.1;
 	
-	private double gap = 0.0001;
-
-	private double imagex=(x2-x1)/gap;
-	private double imagey=(y2-y1)/gap;
+	private double gap = 0.001;
 	
 	private int r = 64; int g = 224; int b = 208; //turquoise
 	private int col = (r << 16) | (g << 8) | b;
-	private File f = new File(real + imaginary + ".png");
+	private File f;
 	private BufferedImage img;
 
 	private int nbrThreads = 4;
-
-	private Complex c;
-	private int k;
 
     public FractDesigner(String real, String imaginary) {
 		String v1S, v2S = "";
@@ -57,11 +48,13 @@ public class FractDesigner {
 
 		this.real = Double.parseDouble(v1S);
 		this.imaginary = Double.parseDouble(v2S);
+		f = new File(real + " " + imaginary + ".png");
 		createFract();
     }
     public FractDesigner() {
         this.real = -1.476;
         this.imaginary = 0;
+		f = new File(real + " " + imaginary + ".png");
 		createFract();
     }
 
@@ -87,11 +80,12 @@ public class FractDesigner {
     }
 
 	private void createFract() {
-
-		img =new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
 		double standardDevX = standardDev(x1, x2);
 		double standardDevY = standardDev(y1, y2);
-
+		double imagex=(x2-x1)/gap;
+		double imagey=(y2-y1)/gap;
+		img = new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
+		
 		// we want nbrThread power of two
 		if (!isPowerOfTwo(nbrThreads)) {
 			nbrThreads+=1;
@@ -100,53 +94,52 @@ public class FractDesigner {
 			}
 		}
 
-		double portionX = standardDevX/nbrThreads;
-		double portionY = standardDevY/nbrThreads;
+		double portionX = standardDevX/(nbrThreads/2);
+		double portionY = standardDevY/(nbrThreads/2);
 		double startX = x1;
 		double startY = y1;
 
-		/*
-		 *
-		 * Ici, répartir standardDev en nbrThreads par égales
-		 * pour répartir l'execution dans des tâches 
-		 *  
-		 */
+		imagex = imagex/(nbrThreads/2);
+		imagey = imagey/(nbrThreads/2);
+		
+		double endX = portionX;
+		double endY = portionY;
 
-		for (int i = 0; i<nbrThreads ; i++) {
-			FractThread t = new FractThread(startX, portionX, startY, portionY, gap);
-			t.start();
+		FractThread[] listOfProsses = new FractThread[nbrThreads];
+		int k = 0;
+		for (int i = 0; i<nbrThreads/2 ; i++) {
+			for (int j = 0 ; j <nbrThreads/2 ; j++) {
+				listOfProsses[k] = new FractThread(startX, endX, startY, endY, gap, imagex, imagey, real, imaginary, this, col);
+				listOfProsses[k].start();
+				startY += portionY;
+				endY += portionY;
+				imagey += imagey;
+				k+=1;
+			}
 			startX += portionX;
-			portionX += portionX;
-			startY += portionY;
-			portionY += portionY;
+			endX += portionX;
+			imagex += imagex;
+			startY = y1;
+			endY = standardDevY/(nbrThreads/2);
+			imagey = ((y2-y1)/gap)/(nbrThreads/2);
+		}
+		int j = 0;
+		while(j != nbrThreads) {
+			for (int i = 0 ; i<nbrThreads ; i++) {
+				if (!listOfProsses[i].isAlive()) {
+					j+=1;
+				}
+			}
 		} 
 		try {
 			ImageIO.write(img, "PNG", f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
-
-	
-	private Complex f(Complex c) {
-		return c.times(c).plus(new Complex(real,imaginary));
 	}
 	
-	private int divergenceIndex(Complex c) {
-		int i = 0;
-		while(i < 1000-1 & c.getModulus() <= 2.0) {
-			c = f(c);
-			i++;
-		}
-		return i;
-	}
-	
-	private int RGBFromIndex(int index) {
-		int r = 0, g = 0, b = 0;
-		for(int i=0;i<index%256;i++) {
-			g++;
-		}
-		return (r << 16) | (g << 8) | b;
+	public BufferedImage getImg() {
+		return this.img;
 	}
 
 }
