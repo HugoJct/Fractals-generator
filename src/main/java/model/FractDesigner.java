@@ -138,7 +138,7 @@ public class FractDesigner {
 		}
 	}
 	
-	public BufferedImage getImg() {
+	public synchronized BufferedImage getImg() {
 		return this.img;
 	}
 
