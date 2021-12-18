@@ -3,6 +3,7 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -48,13 +49,13 @@ public class FractDesigner {
 
 		this.real = Double.parseDouble(v1S);
 		this.imaginary = Double.parseDouble(v2S);
-		f = new File(real + " " + imaginary + ".png");
+		f = new File(real + "_" + imaginary + ".png");
 		createFract();
     }
     public FractDesigner() {
         this.real = -1.476;
         this.imaginary = 0;
-		f = new File(real + " " + imaginary + ".png");
+		f = new File(real + "_" + imaginary + ".png");
 		createFract();
     }
 
@@ -74,71 +75,73 @@ public class FractDesigner {
 		}
 	}	
 	
-    static boolean isPowerOfTwo(int n) {
+    /* static boolean isPowerOfTwo(int n) {
         return (int)(Math.ceil((Math.log(n) / Math.log(2))))
             == (int)(Math.floor(((Math.log(n) / Math.log(2)))));
-    }
+    } */
 
 	private void createFract() {
-		double standardDevX = standardDev(x1, x2);
 		double standardDevY = standardDev(y1, y2);
 		double imagex=(x2-x1)/gap;
 		double imagey=(y2-y1)/gap;
 		img = new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
 		
 		// we want nbrThread power of two
-		if (!isPowerOfTwo(nbrThreads)) {
+		/* if (!isPowerOfTwo(nbrThreads)) {
 			nbrThreads+=1;
 			while (!isPowerOfTwo(nbrThreads)) {
 				nbrThreads+=1;
 			}
-		}
+		} */
 
-		double portionX = standardDevX/(nbrThreads/2);
-		double portionY = standardDevY/(nbrThreads/2);
-		double startX = x1;
+		double portionY = standardDevY/nbrThreads;
 		double startY = y1;
 
-		imagex = imagex/(nbrThreads/2);
-		imagey = imagey/(nbrThreads/2);
-		
-		double endX = portionX;
-		double endY = portionY;
+		double imageyBis = imagey/nbrThreads;
+		imagey = imageyBis;
+		double endY = startY + portionY;
 
-		FractThread[] listOfProsses = new FractThread[nbrThreads];
-		int k = 0;
-		for (int i = 0; i<nbrThreads/2 ; i++) {
-			for (int j = 0 ; j <nbrThreads/2 ; j++) {
-				listOfProsses[k] = new FractThread(startX, endX, startY, endY, gap, imagex, imagey, real, imaginary, this, col);
-				listOfProsses[k].start();
-				startY += portionY;
-				endY += portionY;
-				imagey += imagey;
-				k+=1;
-			}
-			startX += portionX;
-			endX += portionX;
-			imagex += imagex;
-			startY = y1;
-			endY = standardDevY/(nbrThreads/2);
-			imagey = ((y2-y1)/gap)/(nbrThreads/2);
+		/* for (int i = 0 ; i < nbrThreads ; i++) {
+			System.out.println(startY + " - " + endY + " : " + portionY);
+			startY+=portionY;
+			endY+=portionY;
+		} */
+
+		ArrayList<FractThread> listOfProsses = new ArrayList<>();
+
+		for (int i = 0; i<nbrThreads ; i++) {
+			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, this, col));
+			System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
+			startY += portionY;
+			endY += portionY;
+			imagey += imageyBis;
 		}
-		int j = 0;
-		while(j != nbrThreads) {
-			for (int i = 0 ; i<nbrThreads ; i++) {
-				if (!listOfProsses[i].isAlive()) {
-					j+=1;
-				}
+
+		for (int i = 0 ; i<nbrThreads ; i++) {
+			listOfProsses.get(i).start();
+		}
+
+		for (int i = 0 ; i<nbrThreads ; i++) {
+			try {
+				listOfProsses.get(i).join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				System.exit(1);
 			}
-		} 
+		}
 		try {
 			ImageIO.write(img, "PNG", f);
+			System.out.println("Ecriture buffer dans fichier");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		for (int i = 0 ; i<nbrThreads ; i++) {
+			listOfProsses.get(i).stop();
+		}
+		System.exit(0);
 	}
 	
-	public synchronized BufferedImage getImg() {
+	public BufferedImage getImg() {
 		return this.img;
 	}
 
