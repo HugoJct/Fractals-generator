@@ -26,6 +26,10 @@ public class FractDesigner {
 
 	private int nbrThreads = 4;
 
+	/*
+	 * Constructeur avec valeurs (réel/img) passées en argument
+	 * exemple : m0.45 0.2 <=> -0.45 + 0.2
+	 */
     public FractDesigner(String real, String imaginary) {
 		String v1S, v2S = "";
 		
@@ -52,6 +56,10 @@ public class FractDesigner {
 		f = new File(real + "_" + imaginary + ".png");
 		createFract();
     }
+
+	/*
+	 * Constructeur avec valeurs (réel/img) par défaut
+	 */
     public FractDesigner() {
         this.real = -1.476;
         this.imaginary = 0;
@@ -59,7 +67,9 @@ public class FractDesigner {
 		createFract();
     }
 
-		// File[] files = new File("./").listFiles();
+	/*
+	 * Calcul de l'écart type entre a et b
+	 */
 	private double standardDev(double a, double b) {
 		if (a < 0 && b < 0) {
 			return b<a?Math.abs(a)-Math.abs(b):Math.abs(b)-Math.abs(a);
@@ -74,61 +84,54 @@ public class FractDesigner {
 			return b<a?a-b:b-a;
 		}
 	}	
-	
-    /* static boolean isPowerOfTwo(int n) {
-        return (int)(Math.ceil((Math.log(n) / Math.log(2))))
-            == (int)(Math.floor(((Math.log(n) / Math.log(2)))));
-    } */
+
 
 	private void createFract() {
 		double standardDevY = standardDev(y1, y2);
 		double imagex=(x2-x1)/gap;
 		double imagey=(y2-y1)/gap;
+
 		img = new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
-		
-		// we want nbrThread power of two
-		/* if (!isPowerOfTwo(nbrThreads)) {
-			nbrThreads+=1;
-			while (!isPowerOfTwo(nbrThreads)) {
-				nbrThreads+=1;
-			}
-		} */
 
+		// intervalle d'écriture à répartir entre chaque thread (pour 4 thread : portionY = 1/4)
 		double portionY = standardDevY/nbrThreads;
+		// valeur de départ en écriture pour y
 		double startY = y1;
-
+		// valeur de fin en écriture pour y
+		double endY = startY + portionY;
+		
 		double imageyBis = imagey/nbrThreads;
 		imagey = imageyBis;
-		double endY = startY + portionY;
+		
 
-		/* for (int i = 0 ; i < nbrThreads ; i++) {
-			System.out.println(startY + " - " + endY + " : " + portionY);
-			startY+=portionY;
-			endY+=portionY;
-		} */
 
 		ArrayList<FractThread> listOfProsses = new ArrayList<>();
 
+		// création de tous les threads avec leur intervalle d'écriture en y
 		for (int i = 0; i<nbrThreads ; i++) {
-			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, this, col));
-			//System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
-			startY += portionY;
-			endY += portionY;
+			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, img, col));
+			System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
+			startY += startY;
+			endY += startY;
 			imagey += imageyBis;
 		}
 
-		for (int i = 0 ; i<nbrThreads ; i++) {
+		// start des threads
+		for (int i = 0 ; i<listOfProsses.size() ; i++) {
 			listOfProsses.get(i).start();
 		}
 
-		for (int i = 0 ; i<nbrThreads ; i++) {
+		// ajout des threads
+		for (int i = 0 ; i<listOfProsses.size() ; i++) {
 			try {
 				listOfProsses.get(i).join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				System.exit(1);
 			}
-		}
+		} 
+
+		// écriture du contenu du buffer (de la fractale) dans le fichier image
 		try {
 			ImageIO.write(img, "PNG", f);
 			System.out.println("Ecriture buffer dans fichier");
@@ -137,7 +140,7 @@ public class FractDesigner {
 		}
 		System.exit(0);
 	}
-	
+
 	public BufferedImage getImg() {
 		return this.img;
 	}

@@ -1,9 +1,6 @@
 package model;
 
-import model.FractDesigner;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.image.BufferedImage;
 
 public class FractThread extends Thread {
     private double x1, x2;
@@ -14,10 +11,10 @@ public class FractThread extends Thread {
     private int k;
     private double real;
 	  private double imaginary;
-    private FractDesigner fract;
+    private BufferedImage img;
     private int col;
 
-    public FractThread(double x1, double x2, double y1, double y2, double gap, double imageX, double imageY, double real, double imaginary, FractDesigner fract, int col) {
+    public FractThread(double x1, double x2, double y1, double y2, double gap, double imageX, double imageY, double real, double imaginary, BufferedImage img, int col) {
       this.x1 = x1;
       this.x2 = x2;
       this.y1 = y1;
@@ -27,7 +24,7 @@ public class FractThread extends Thread {
       this.imageY = imageY;
       this.real = real;
       this.imaginary = imaginary;
-      this.fract = fract;
+      this.img = img;
       this.col = col;
     }
 
@@ -39,15 +36,13 @@ public class FractThread extends Thread {
           c = new Complex(i,j);
           k = divergenceIndex(c);
           
-          System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
-          synchronized(fract.getImg()) {
-            if(k == 1000) {
-              fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
-            } else {
-              col = 0 | 0 | (k*255/1000);
-              fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
-            }
-          }
+          // System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
+          if(k == 1000) {
+            img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
+          } else {
+            col = 0 | 0 | (k*255/1000);
+            img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
+          } 
         }
       }
     }
