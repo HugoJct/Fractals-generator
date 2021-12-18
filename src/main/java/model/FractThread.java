@@ -39,14 +39,15 @@ public class FractThread extends Thread {
           c = new Complex(i,j);
           k = divergenceIndex(c);
           
-          //System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
-          if(k == 1000) {
-            fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
-          } else {
-            col = 0 | 0 | (k*255/1000);
-            fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
+          System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
+          synchronized(fract.getImg()) {
+            if(k == 1000) {
+              fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
+            } else {
+              col = 0 | 0 | (k*255/1000);
+              fract.getImg().setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
+            }
           }
-          
         }
       }
     }

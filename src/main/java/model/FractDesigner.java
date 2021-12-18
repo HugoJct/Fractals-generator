@@ -111,7 +111,7 @@ public class FractDesigner {
 
 		for (int i = 0; i<nbrThreads ; i++) {
 			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, this, col));
-			System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
+			//System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
 			startY += portionY;
 			endY += portionY;
 			imagey += imageyBis;
@@ -134,9 +134,6 @@ public class FractDesigner {
 			System.out.println("Ecriture buffer dans fichier");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		for (int i = 0 ; i<nbrThreads ; i++) {
-			listOfProsses.get(i).stop();
 		}
 		System.exit(0);
 	}
