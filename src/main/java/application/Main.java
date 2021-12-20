@@ -31,7 +31,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			new FractController(new ViewManager());
+			new ViewManager();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
