@@ -18,12 +18,12 @@ public class Main extends Application {
 				.setDefinitionDomain(new FractalDefinitionDomain(-1, 1, -1, 1))
 				.setGap(0.01)
 				.buildJulia();
-		
+
 		if (args.length == 3) {
 			String[] cpxValAsString = {args[1],args[2]};
 			new FractController(args[1], args[2]);
 		} else {
-			new FractController();
+			launch(args);
 		}	
 
 	}
@@ -31,7 +31,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			new ViewManager();
+			new FractController(new ViewManager());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
