@@ -7,11 +7,15 @@ public class JuliaFractal extends Fractal{
 	}
 
 	public Complex next() {
-		Complex zn = f(lastComputed,this.complexConstant);
 		if(this.domain.contains(lastComputed)) {
+			Complex zn = f(lastComputed,this.complexConstant);
 			
-			lastComputed = lastComputed.plus(new Complex(0, gap));
-			
+			if(this.domain.contains((lastComputed.plus(new Complex(0, gap))))) {
+				this.lastComputed = lastComputed.plus(new Complex(0, gap));
+			} else {
+				this.lastComputed = new Complex(this.lastComputed.getRealPart() + gap,this.domain.getMin().getImaginaryPart());
+			}
+				
 			return zn;
 		}
 		return null;
