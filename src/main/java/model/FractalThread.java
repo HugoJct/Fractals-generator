@@ -39,7 +39,6 @@ public class FractalThread extends Thread {
 					img.setRGB(x, (int) y, color);
 				} while (index >= 0);
 			}
-			System.out.println("done");
 		} catch (ArrayIndexOutOfBoundsException e) {
 			e.printStackTrace();
 			System.out.println(x + " " + (int)y);
