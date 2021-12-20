@@ -19,41 +19,25 @@ public class Complex {
 		return new Complex(real,imaginary);
 	}
 
-	public Complex minus(Complex x){
-		double real = this.realPart - x.realPart;
-		double imaginary = this.imaginaryPart - x.imaginaryPart;
-		return new Complex(real,imaginary);
-	}
-
 	public Complex times(Complex x) {
 		double real = (this.realPart * x.realPart) - (this.imaginaryPart * x.imaginaryPart);
 		double imaginary = (this.realPart * x.imaginaryPart) + (this.imaginaryPart * x.realPart);
 		return new Complex(real,imaginary);
 	}
-
-	public Complex divide(Complex x) {	// I don't remember how to do it 
-		return null;
-	}
 	
 	//Getters
 	public double getRealPart() {
-		return this.realPart;
+		double real = this.realPart;
+		return real;
 	}
 	
 	public double getImaginaryPart() {
-		return this.imaginaryPart;
-	}
-	
-	public Complex getConjugate() {
-		return new Complex(this.realPart, -this.imaginaryPart);
+		double im = this.imaginaryPart;
+		return im;
 	}
 	
 	public double getModulus() {
 		return Math.sqrt(Math.pow(this.realPart,2) + Math.pow(this.imaginaryPart, 2));
-	}
-	
-	public double getArgument() { 	//I don't know how to do it with a computer ^^'
-		return 0;
 	}
 
 	//Tests
@@ -63,6 +47,9 @@ public class Complex {
 
 	//toString
 	public String toString() {
-		return realPart + "+" + imaginaryPart + "i";
+		String ret = realPart + "";
+		if (this.getImaginaryPart() >= 0) ret += "+" ;
+		ret += imaginaryPart + "i";
+		return ret;
 	}
 }

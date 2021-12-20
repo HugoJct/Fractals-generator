@@ -1,15 +1,12 @@
 package application;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
 import controller.FractController;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import model.Complex;
+import model.Fractal;
+import model.FractalBuilder;
+import model.FractalDefinitionDomain;
 import view.ViewManager;
 
 public class Main extends Application {
@@ -17,7 +14,18 @@ public class Main extends Application {
 	AutoCloseable controller;
 
 	public static void main(String[] args) {
-		launch(args);
+		Fractal f = new FractalBuilder().setComplexConstant(new Complex(-0.7269, 0.1889))
+				.setDefinitionDomain(new FractalDefinitionDomain(-1, 1, -1, 1))
+				.setGap(0.01)
+				.buildJulia();
+		
+		if (args.length == 3) {
+			String[] cpxValAsString = {args[1],args[2]};
+			new FractController(args[1], args[2]);
+		} else {
+			new FractController();
+		}	
+
 	}
 
 	@Override
@@ -27,13 +35,6 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-
-		/* if (args.length == 3) {
-			String[] cpxValAsString = {args[1],args[2]};
-			new FractController(args[1], args[2]);
-		} else { */
-			//new FractController();
-		// }	
 	}
 
     @Override
