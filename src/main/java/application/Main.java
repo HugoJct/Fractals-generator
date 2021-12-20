@@ -1,12 +1,16 @@
 package application;
 
+import controller.FractController;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import model.Complex;
 import model.Fractal;
 import model.FractalBuilder;
 import model.FractalDefinitionDomain;
 import model.FractalDesigner;
+import view.ViewManager;
 
-public class Main {
+public class Main extends Application {
 
 	AutoCloseable controller;
 
@@ -33,4 +37,17 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
+
+    @Override
+    public void stop() throws Exception {
+        if(controller != null) {
+            try {
+                controller.close();
+            } catch (Exception ex) {
+                System.err.println("Problem closing! " + ex.toString());
+            }
+        }
+        super.stop();
+    }
+
 }
