@@ -18,12 +18,14 @@ public abstract class Fractal {
 		return z.times(z).plus(c);
 	}
 	
-	public int getCurrentDivergenceIndex() {
-		
-		
-		
-		return 0;
-	}
+	public abstract int getCurrentDivergenceIndex();
 	
 	public abstract Complex next();
+	
+	public int getNextDivergenceIndex() {
+		if (next() != null)
+			return getCurrentDivergenceIndex();
+		else
+			return -1;
+	}
 }

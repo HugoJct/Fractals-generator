@@ -16,9 +16,18 @@ public class MandelbrotFractal extends Fractal{
 				this.lastComputed = new Complex(this.lastComputed.getRealPart() + gap,this.domain.getMin().getImaginaryPart());
 			}
 				
-			return zn;
+			return lastComputed;
 		}
 		return null;
+	}
+
+	public int getCurrentDivergenceIndex() {
+		int i = 0;
+		Complex lastValue = f(complexConstant,lastComputed);
+		while((i < 1000) && (lastValue.getModulus() < 2)) {
+			lastValue = f(complexConstant,lastValue);
+		}
+		return i;
 	}
 
 }

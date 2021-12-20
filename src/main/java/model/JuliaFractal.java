@@ -8,16 +8,24 @@ public class JuliaFractal extends Fractal{
 
 	public Complex next() {
 		if(this.domain.contains(lastComputed)) {
-			Complex zn = f(lastComputed,this.complexConstant);
 			
 			if(this.domain.contains((lastComputed.plus(new Complex(0, gap))))) {
 				this.lastComputed = lastComputed.plus(new Complex(0, gap));
 			} else {
 				this.lastComputed = new Complex(this.lastComputed.getRealPart() + gap,this.domain.getMin().getImaginaryPart());
 			}
-				
-			return zn;
+			return lastComputed;	
 		}
 		return null;
+	}
+
+	public int getCurrentDivergenceIndex() {
+		int i = 0;
+		Complex lastValue = f(lastComputed,complexConstant);
+		while((i < 1000) && (lastValue.getModulus() < 2)) {
+			lastValue = f(lastValue,complexConstant);
+			i++;
+		}
+		return i;
 	}
 }
