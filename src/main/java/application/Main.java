@@ -1,5 +1,6 @@
 package application;
 
+import controller.FractController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Complex;
@@ -18,12 +19,13 @@ public class Main extends Application {
 				.setGap(0.01)
 				.buildJulia();
 		
-		int index = 0;
-		while(index >= 0) {
-			index = f.getNextDivergenceIndex();
-			System.out.println(index);
-		}
-		launch(args);
+		if (args.length == 3) {
+			String[] cpxValAsString = {args[1],args[2]};
+			new FractController(args[1], args[2]);
+		} else {
+			new FractController();
+		}	
+
 	}
 
 	@Override
@@ -33,13 +35,6 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-
-		/* if (args.length == 3) {
-			String[] cpxValAsString = {args[1],args[2]};
-			new FractController(args[1], args[2]);
-		} else { */
-			//new FractController();
-		// }	
 	}
 
     @Override
