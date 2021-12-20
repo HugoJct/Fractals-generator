@@ -26,4 +26,8 @@ public class FractalDefinitionDomain {
 	public Complex getMax() {
 		return new Complex(x2,y2);
 	}
+	
+	public String toString() {
+		return x1+" "+y1+"\n"+x2+" "+y2;
+	}
 }
