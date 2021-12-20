@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class FractDesigner {
+public class FractalDesigner {
     
     private double real;
 	private double imaginary;
 
-    public FractDesigner(String real, String imaginary) {
+    public FractalDesigner(String real, String imaginary) {
 		String v1S, v2S = "";
 		
 		if (real.charAt(0) == 'm') {
@@ -35,7 +35,7 @@ public class FractDesigner {
 		this.imaginary = Double.parseDouble(v2S);
 		createFract();
     }
-    public FractDesigner() {
+    public FractalDesigner() {
         this.real = -1.476;
         this.imaginary = 0;
 		createFract();

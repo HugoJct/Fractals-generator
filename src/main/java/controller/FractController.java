@@ -1,13 +1,13 @@
 package controller;
 
-import model.FractDesigner;
+import model.FractalDesigner;
 
 public class FractController {
     
     public FractController(String real, String imaginary) {
-        new FractDesigner(real, imaginary);
+        new FractalDesigner(real, imaginary);
     }
     public FractController() {
-        new FractDesigner();
+        new FractalDesigner();
     }
 }

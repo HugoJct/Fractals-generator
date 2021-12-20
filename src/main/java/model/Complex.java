@@ -47,6 +47,9 @@ public class Complex {
 
 	//toString
 	public String toString() {
-		return realPart + "+" + imaginaryPart + "i";
+		String ret = realPart + "";
+		if (this.getImaginaryPart() >= 0) ret += "+" ;
+		ret += imaginaryPart + "i";
+		return ret;
 	}
 }
