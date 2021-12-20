@@ -6,7 +6,7 @@ public class JuliaFractal extends Fractal{
 		super(fb);
 	}
 
-	public Complex next() {
+	protected Complex next() {
 		if(this.domain.contains(lastComputed)) {
 			
 			if(this.domain.contains((lastComputed.plus(new Complex(0, gap))))) {
@@ -19,7 +19,7 @@ public class JuliaFractal extends Fractal{
 		return null;
 	}
 
-	public int getCurrentDivergenceIndex() {
+	protected int getCurrentDivergenceIndex() {
 		int i = 0;
 		Complex lastValue = f(lastComputed,complexConstant);
 		while((i < 1000) && (lastValue.getModulus() < 2)) {

@@ -18,11 +18,15 @@ public abstract class Fractal {
 		return z.times(z).plus(c);
 	}
 	
-	public abstract int getCurrentDivergenceIndex();
+	protected abstract int getCurrentDivergenceIndex();
 	
-	public abstract Complex next();
+	protected abstract Complex next();
 	
-	public int getNextDivergenceIndex() {
+	/*
+	 * returns the divergence index calculated from lastComputed
+	 * and returns -1 if all numbers in the definition domain have been calculated
+	 */
+	public int getNextDivergenceIndex() {		
 		if (next() != null)
 			return getCurrentDivergenceIndex();
 		else

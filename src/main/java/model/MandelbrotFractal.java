@@ -6,7 +6,7 @@ public class MandelbrotFractal extends Fractal{
 		super(fb);
 	}
 
-	public Complex next() {
+	protected Complex next() {
 		if(this.domain.contains(lastComputed)) {
 			Complex zn = f(complexConstant,lastComputed);
 			
@@ -21,7 +21,7 @@ public class MandelbrotFractal extends Fractal{
 		return null;
 	}
 
-	public int getCurrentDivergenceIndex() {
+	protected int getCurrentDivergenceIndex() {
 		int i = 0;
 		Complex lastValue = f(complexConstant,lastComputed);
 		while((i < 1000) && (lastValue.getModulus() < 2)) {
