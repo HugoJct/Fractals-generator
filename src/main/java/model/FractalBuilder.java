@@ -3,7 +3,7 @@ package model;
 public class FractalBuilder {
 	
 	private Complex complexConstant = new Complex(0.3, 0.5);
-	private FractalDefinitionDomain domain = new FractalDefinitionDomain(-0.1, 0.1, -0.1, 0.1);
+	private FractalDefinitionDomain domain = new FractalDefinitionDomain(-1, 1, -1, 1);
 	private double gap = 0.01;
 	
 	public FractalBuilder setComplexConstant(Complex c) {

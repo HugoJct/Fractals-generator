@@ -7,6 +7,7 @@ import model.Complex;
 import model.Fractal;
 import model.FractalBuilder;
 import model.FractalDefinitionDomain;
+import model.FractalDesigner2;
 import view.ViewManager;
 
 public class Main extends Application {
@@ -14,27 +15,18 @@ public class Main extends Application {
 	AutoCloseable controller;
 
 	public static void main(String[] args) {
-		Fractal f = new FractalBuilder().setComplexConstant(new Complex(-0.7269, 0.1889))
-				.setDefinitionDomain(new FractalDefinitionDomain(-1, 1, -1, 1))
-				.setGap(0.01)
-				.buildJulia();
-		
-		if (args.length == 3) {
-			String[] cpxValAsString = {args[1],args[2]};
-			new FractController(args[1], args[2]);
-		} else {
-			new FractController();
-		}	
-
+		Fractal f = new FractalBuilder().setComplexConstant(new Complex(-0.7269, 0.1889)).buildJulia();
+		FractalDesigner2 fd = new FractalDesigner2(f);
+		fd.writeImage(fd.drawFractal());
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
-		try {
+		/*try {
 			new ViewManager();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
     @Override

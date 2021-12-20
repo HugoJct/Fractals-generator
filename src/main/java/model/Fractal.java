@@ -32,4 +32,20 @@ public abstract class Fractal {
 		else
 			return -1;
 	}
+	
+	public FractalDefinitionDomain getDomain() {
+		return this.domain;
+	}
+	
+	public double getGap() {
+		return this.gap;
+	}
+	
+	public Complex getLastComputed() {
+		return this.lastComputed;
+	}
+	
+	public Complex getComplexConstant() {
+		return this.complexConstant;
+	}
 }
