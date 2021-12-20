@@ -13,8 +13,10 @@ public class FractThread extends Thread {
 	  private double imaginary;
     private BufferedImage img;
     private int col;
+    private int nbrPortions;
+    private int threadID;
 
-    public FractThread(double x1, double x2, double y1, double y2, double gap, double imageX, double imageY, double real, double imaginary, BufferedImage img, int col) {
+    public FractThread(double x1, double x2, double y1, double y2, double gap, double imageX, double imageY, double real, double imaginary, BufferedImage img, int col, int nbrPotions, int threadID) {
       this.x1 = x1;
       this.x2 = x2;
       this.y1 = y1;
@@ -26,25 +28,32 @@ public class FractThread extends Thread {
       this.imaginary = imaginary;
       this.img = img;
       this.col = col;
+      this.nbrPortions = nbrPotions;
+      this.threadID = threadID;
+    
     }
 
     @Override
     public void run() {
-      for (double i = x1 ; i < x2-gap ; i+= gap) {
-        for (double j = y1 ; j < y2-gap ; j+= gap) {
-          
-          c = new Complex(i,j);
-          k = divergenceIndex(c);
-          
-          // System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
-          if(k == 1000) {
-            img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), 0);
-          } else {
-            col = 0 | 0 | (k*255/1000);
-            img.setRGB((int)((i-x1)/gap), (int)((j-y1)/gap), RGBFromIndex(k));
-          } 
+      synchronized(img) {
+        for (double i = x1 ; i < x2-gap ; i+= gap) {
+          for (double j = y1 ; j < y2-gap ; j+= gap) {
+            
+            c = new Complex(i,j);
+            k = divergenceIndex(c);
+            double lecalcul = (((j-y1) / gap) + ((imageY/nbrPortions) * threadID))-threadID;
+
+            //System.out.println("x: "+imageX+" y: "+imageY+" "+(i-x1)/gap+" "+(j-y1)/gap);
+            if(k == 1000) {
+              img.setRGB((int)((i-x1)/gap), (int)(lecalcul), 0);
+            } else {
+              col = 0 | 0 | (k*255/1000);
+              img.setRGB((int)((i-x1)/gap), (int)(lecalcul), RGBFromIndex(k));
+            } 
+          }
         }
       }
+
     }
 
     private int RGBFromIndex(int index) {

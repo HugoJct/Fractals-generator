@@ -12,10 +12,10 @@ public class FractDesigner {
     private double real;
 	private double imaginary;
 
-	private double x1 = -0.1;
-	private double x2 = 0.1;
-	private double y1 = -0.1;
-	private double y2 = 0.1;
+	private double x1 = -1;
+	private double x2 = 1;
+	private double y1 = -1;
+	private double y2 = 1;
 	
 	private double gap = 0.001;
 	
@@ -24,7 +24,7 @@ public class FractDesigner {
 	private File f;
 	private BufferedImage img;
 
-	private int nbrThreads = 4;
+	private int nbrThreads = 16;
 
 	/*
 	 * Constructeur avec valeurs (réel/img) passées en argument
@@ -61,8 +61,8 @@ public class FractDesigner {
 	 * Constructeur avec valeurs (réel/img) par défaut
 	 */
     public FractDesigner() {
-        this.real = -1.476;
-        this.imaginary = 0;
+        this.real = -0.7269;
+        this.imaginary = 0.1889;
 		f = new File(real + "_" + imaginary + ".png");
 		createFract();
     }
@@ -100,20 +100,16 @@ public class FractDesigner {
 		// valeur de fin en écriture pour y
 		double endY = startY + portionY;
 		
-		double imageyBis = imagey/nbrThreads;
-		imagey = imageyBis;
-		
 
 
 		ArrayList<FractThread> listOfProsses = new ArrayList<>();
 
 		// création de tous les threads avec leur intervalle d'écriture en y
 		for (int i = 0; i<nbrThreads ; i++) {
-			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, img, col));
+			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, img, col, nbrThreads, i));
 			System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
-			startY += startY;
-			endY += startY;
-			imagey += imageyBis;
+			startY += portionY;
+			endY += portionY;
 		}
 
 		// start des threads
@@ -134,7 +130,7 @@ public class FractDesigner {
 		// écriture du contenu du buffer (de la fractale) dans le fichier image
 		try {
 			ImageIO.write(img, "PNG", f);
-			System.out.println("Ecriture buffer dans fichier");
+			System.out.println("Ecriture buffer dans fichier : " + real + "_" + imaginary + ".png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
