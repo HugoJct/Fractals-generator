@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -8,7 +10,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
    <children>
-      <Pane layoutX="172.0" layoutY="-3.0" prefHeight="557.0" prefWidth="563.0" />
       <VBox prefHeight="550.0" prefWidth="237.0" style="-fx-background-color: #3F2B63;">
          <children>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="215.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
@@ -121,5 +122,6 @@
             </VBox>
          </children>
       </VBox>
+      <ImageView fx:id="fractalView" fitHeight="550.0" fitWidth="521.0" layoutX="237.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
