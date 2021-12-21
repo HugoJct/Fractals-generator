@@ -39,12 +39,15 @@ public class FractalDesigner {
 		double imagey=(fr.getDomain().getMax().getImaginaryPart() - fr.getDomain().getMin().getImaginaryPart()) / fr.getGap();
 		BufferedImage img = new BufferedImage((int)Math.round(imagex), (int)Math.round(imagey), BufferedImage.TYPE_INT_RGB);
 		
-		int nbThreads = 16;
+		int nbThreads = 2;
 		int portionSize = (int) imagey / nbThreads;
 		
 		double startY = fr.getDomain().getMin().getImaginaryPart();
 		double portionY = standardDev(startY, fr.getDomain().getMax().getImaginaryPart())/nbThreads;
 		double endY = startY + portionY;
+		
+		long startTime = System.nanoTime();
+		
 		for(int i=0;i<nbThreads;i++) {
 			
 			FractalDefinitionDomain fdd = new FractalDefinitionDomain(fr.getDomain().getMin().getRealPart(), fr.getDomain().getMax().getRealPart(), startY, endY);
@@ -62,6 +65,9 @@ public class FractalDesigner {
 				t.join();
 			} catch (InterruptedException e) {e.printStackTrace();}
 		}
+		
+		long stopTime = System.nanoTime();
+		System.out.println("Runtime: "+((stopTime-startTime)/1000000)+"ms");
 		
 		return img;
 	}

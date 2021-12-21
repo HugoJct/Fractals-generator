@@ -43,6 +43,7 @@ public class FractalThread extends Thread {
 			e.printStackTrace();
 			System.out.println(x + " " + (int)y);
 		}
+		System.out.println(this.f.getDomain()+" Done !");
 	}
 
 	private int RGBFromIndex(int index) {
