@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import application.TestLoadAverage;
+
 public class FractalDesigner {
 
 	private Fractal fr;
@@ -39,7 +41,7 @@ public class FractalDesigner {
 		BufferedImage img = new BufferedImage((int) Math.round(imagex), (int) Math.round(imagey),
 				BufferedImage.TYPE_INT_RGB);
 
-		int nbThreads = 2;
+		int nbThreads = TestLoadAverage.getNumberOfProcessor();
 		int portionSize = (int) imagey / nbThreads;
 
 		double startY = fr.getDomain().getMin().getImaginaryPart();

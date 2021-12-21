@@ -56,7 +56,6 @@ public class FractController implements Initializable {
 
     @FXML
     void generateFractal(ActionEvent event) {
-        System.out.println("Hello World");
 
         if(imaginary.getText().trim().isEmpty() 
             || real.getText().trim().isEmpty()
