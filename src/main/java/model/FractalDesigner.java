@@ -3,142 +3,91 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import application.TestLoadAverage;
+
 public class FractalDesigner {
-    
-    private double real;
-	private double imaginary;
 
-	private double x1 = -1;
-	private double x2 = 1;
-	private double y1 = -1;
-	private double y2 = 1;
-	
-	private double gap = 0.001;
-	
-	private int r = 64; int g = 224; int b = 208; //turquoise
-	private int col = (r << 16) | (g << 8) | b;
+	private Fractal fr;
 	private File f;
-	private BufferedImage img;
+	private LinkedList<Thread> tList = new LinkedList<Thread>();
 
-	private int nbrThreads = 16;
+	public FractalDesigner(Fractal f) {
+		this.fr = f;
+		this.f = new File(
+				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + ".png");
+	}
 
-	/*
-	 * Constructeur avec valeurs (réel/img) passées en argument
-	 * exemple : m0.45 0.2 <=> -0.45 + 0.2
-	 */
-    public FractalDesigner(String real, String imaginary) {
-		String v1S, v2S = "";
-		
-		if (real.charAt(0) == 'm') {
-			v1S = "-";
-			for (int i = 0 ; i < real.length()-1 ; i++) {
-				v1S += real.charAt(i+1);
-			}
-		} else {
-			v1S = real;
-		}
-
-		if (imaginary.charAt(0) == 'm') {
-			v2S = "-";
-			for (int i = 0 ; i < imaginary.length()-1 ; i++) {
-				v2S += imaginary.charAt(i+1);
-			}
-		} else {
-			v2S = imaginary;
-		}
-
-		this.real = Double.parseDouble(v1S);
-		this.imaginary = Double.parseDouble(v2S);
-		f = new File(real + "_" + imaginary + ".png");
-		createFract();
-    }
-
-	/*
-	 * Constructeur avec valeurs (réel/img) par défaut
-	 */
-    public FractalDesigner() {
-        this.real = -0.7269;
-        this.imaginary = 0.1889;
-		f = new File(real + "_" + imaginary + ".png");
-		createFract();
-    }
-
-	/*
-	 * Calcul de l'écart type entre a et b
-	 */
 	private double standardDev(double a, double b) {
 		if (a < 0 && b < 0) {
-			return b<a?Math.abs(a)-Math.abs(b):Math.abs(b)-Math.abs(a);
+			return b < a ? Math.abs(a) - Math.abs(b) : Math.abs(b) - Math.abs(a);
+		} else if (a > 0 && b < 0) {
+			return a + Math.abs(b);
+		} else if (a < 0 && b > 0) {
+			return Math.abs(a) + b;
+		} else {
+			return b < a ? a - b : b - a;
 		}
-		else if (a>0 && b<0) {
-			return a+Math.abs(b);
-		}
-		else if (a<0 && b>0) {
-			return Math.abs(a)+b;
-		}
-		else {
-			return b<a?a-b:b-a;
-		}
-	}	
+	}
 
+	public BufferedImage drawFractal() {
+		double imagex = (fr.getDomain().getMax().getRealPart() - fr.getDomain().getMin().getRealPart()) / fr.getGap();
+		double imagey = (fr.getDomain().getMax().getImaginaryPart() - fr.getDomain().getMin().getImaginaryPart())
+				/ fr.getGap();
+		BufferedImage img = new BufferedImage((int) Math.round(imagex), (int) Math.round(imagey),
+				BufferedImage.TYPE_INT_RGB);
 
-	private void createFract() {
-		double standardDevY = standardDev(y1, y2);
-		double imagex=(x2-x1)/gap;
-		double imagey=(y2-y1)/gap;
+		int nbThreads = TestLoadAverage.getNumberOfProcessor();
+		int portionSize = (int) imagey / nbThreads;
 
-		img = new BufferedImage((int)imagex, (int)imagey, BufferedImage.TYPE_INT_RGB);
-
-		// intervalle d'écriture à répartir entre chaque thread (pour 4 thread : portionY = 1/4)
-		double portionY = standardDevY/nbrThreads;
-		// valeur de départ en écriture pour y
-		double startY = y1;
-		// valeur de fin en écriture pour y
+		double startY = fr.getDomain().getMin().getImaginaryPart();
+		double portionY = standardDev(startY, fr.getDomain().getMax().getImaginaryPart()) / nbThreads;
 		double endY = startY + portionY;
-		
 
+		long startTime = System.nanoTime();
 
-		ArrayList<FractThread> listOfProsses = new ArrayList<>();
+		for (int i = 0; i < nbThreads; i++) {
 
-		// création de tous les threads avec leur intervalle d'écriture en y
-		for (int i = 0; i<nbrThreads ; i++) {
-			listOfProsses.add(new FractThread(x1, x2, startY, endY, gap, imagex, imagey, real, imaginary, img, col, nbrThreads, i));
-			System.out.println("x1 : " + x1 + "\nx2 : " + x2 + "\ny1 : " + startY + "\ny2 : " + endY + "\nportion : " + portionY + "\n#######");
+			FractalDefinitionDomain fdd = new FractalDefinitionDomain(fr.getDomain().getMin().getRealPart(),
+					fr.getDomain().getMax().getRealPart(), startY, endY);
+			Fractal tmp;
+			if (fr instanceof JuliaFractal)
+				tmp = new FractalBuilder().setComplexConstant(fr.getComplexConstant()).setGap(fr.getGap())
+						.setDefinitionDomain(fdd).buildJulia();
+			else
+				tmp = new FractalBuilder().setComplexConstant(fr.getComplexConstant()).setGap(fr.getGap())
+						.setDefinitionDomain(fdd).buildMandelbrot();
+			FractalThread t = new FractalThread(tmp, img, i, portionSize);
+			t.start();
+			tList.add(t);
 			startY += portionY;
 			endY += portionY;
 		}
 
-		// start des threads
-		for (int i = 0 ; i<listOfProsses.size() ; i++) {
-			listOfProsses.get(i).start();
-		}
-
-		// ajout des threads
-		for (int i = 0 ; i<listOfProsses.size() ; i++) {
+		for (Thread t : tList) {
 			try {
-				listOfProsses.get(i).join();
+				t.join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				System.exit(1);
 			}
-		} 
+		}
 
-		// écriture du contenu du buffer (de la fractale) dans le fichier image
+		long stopTime = System.nanoTime();
+		System.out.println("Runtime: " + ((stopTime - startTime) / 1000000) + "ms");
+
+		return img;
+	}
+
+	public void writeImage(BufferedImage img) {
 		try {
 			ImageIO.write(img, "PNG", f);
-			System.out.println("Ecriture buffer dans fichier : " + real + "_" + imaginary + ".png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.exit(0);
-	}
-
-	public BufferedImage getImg() {
-		return this.img;
 	}
 
 }
