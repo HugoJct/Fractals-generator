@@ -86,7 +86,14 @@ public class FractController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        real.setText("-0.7269");
+    	imaginary.setText("0.1889");
+        dimX1.setText("-1");
+        dimX2.setText("1");
+        dimY1.setText("-1");
+        dimY2.setText("1");
+        gap.setText("0.001");
+        
     }
 
 }
