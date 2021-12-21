@@ -51,7 +51,18 @@ public class FractController implements Initializable {
     @FXML
     void generateFractal(ActionEvent event) {
         System.out.println("Hello World");
-        
+
+        if(imaginary.getText().trim().isEmpty() 
+            || real.getText().trim().isEmpty()
+            || dimX2.getText().trim().isEmpty()
+            || dimX2.getText().trim().isEmpty()
+            || dimY1.getText().trim().isEmpty()
+            || dimY2.getText().trim().isEmpty()
+            || gap.getText().trim().isEmpty()) {
+                System.out.println("Some fields are empty, please check");
+                return;
+        }
+
         Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
             Double.parseDouble(dimX1.getText()), 
             Double.parseDouble(dimX2.getText()), 
