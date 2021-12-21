@@ -2,21 +2,18 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.stage.Stage;
+
 import model.Complex;
 import model.Fractal;
 import model.FractalBuilder;
@@ -54,15 +51,23 @@ public class FractController implements Initializable {
     @FXML
     void generateFractal(ActionEvent event) {
         System.out.println("Hello World");
-        Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(Double.parseDouble(dimX1.getText()), Double.parseDouble(dimX2.getText()), 
-            Double.parseDouble(dimY1.getText()), Double.parseDouble(dimY2.getText()))).setGap(Double.parseDouble(gap.getText())).setComplexConstant(new Complex(Double.parseDouble(real.getText()), Double.parseDouble(imaginary.getText()))).buildJulia();
-        FractalDesigner leDesigner = new FractalDesigner(f);
-        BufferedImage img = leDesigner.drawFractal();
-        leDesigner.writeImage(img);
-        Image image = convertToFxImage(img);
+        
+        Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
+            Double.parseDouble(dimX1.getText()), 
+            Double.parseDouble(dimX2.getText()), 
+            Double.parseDouble(dimY1.getText()), 
+            Double.parseDouble(dimY2.getText())))
+            .setGap(Double.parseDouble(gap.getText()))
+            .setComplexConstant(new Complex(
+                Double.parseDouble(real.getText()), 
+                Double.parseDouble(imaginary.getText())))
+                .buildJulia();
+        
+        FractalDesigner designer = new FractalDesigner(f);
+        BufferedImage buffImg = designer.drawFractal();
+        designer.writeImage(buffImg);
+        Image image = convertToFxImage(buffImg);
         fractalView.setImage(image);
-        /* Stage thisStage = (Stage) gap.getScene().getWindow();
-        thisStage.show(); */ 
     }
 
     private static Image convertToFxImage(BufferedImage image) {
@@ -76,7 +81,6 @@ public class FractController implements Initializable {
                 }
             }
         }
-    
         return new ImageView(wr).getImage();
     }
 
