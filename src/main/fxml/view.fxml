@@ -12,7 +12,7 @@
    <children>
       <VBox prefHeight="500.0" prefWidth="237.0" style="-fx-background-color: #3F2B63;">
          <children>
-            <Label alignment="CENTER" prefHeight="29.0" prefWidth="215.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="241.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
