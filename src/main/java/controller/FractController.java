@@ -37,9 +37,15 @@ public class FractController implements Initializable {
     @FXML
     private TextField gap;
     @FXML
+    private TextField zoomCoef;
+    @FXML
     private Button createFract;
     @FXML
     private ImageView fractalView;
+    @FXML
+    private Button zoomIn;
+    @FXML
+    private Button zoomOut;
 
     public FractController(String real, String imaginary) {
 
@@ -95,6 +101,25 @@ public class FractController implements Initializable {
         return new ImageView(wr).getImage();
     }
 
+    @FXML
+    void zoomIn(ActionEvent event) {
+        gap.setText(Double.toString(Double.parseDouble(gap.getText())/Double.parseDouble(zoomCoef.getText())));
+        dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())/Double.parseDouble(zoomCoef.getText())));
+        dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())/Double.parseDouble(zoomCoef.getText())));
+        dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())/Double.parseDouble(zoomCoef.getText())));
+        dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())/Double.parseDouble(zoomCoef.getText())));
+        generateFractal(event);
+    }
+    @FXML
+    void zoomOut(ActionEvent event) {
+        gap.setText(Double.toString(Double.parseDouble(gap.getText())*Double.parseDouble(zoomCoef.getText())));
+        dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())*Double.parseDouble(zoomCoef.getText())));
+        dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())*Double.parseDouble(zoomCoef.getText())));
+        dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())*Double.parseDouble(zoomCoef.getText())));
+        dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())*Double.parseDouble(zoomCoef.getText())));
+        generateFractal(event);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         real.setText("-0.7269");
@@ -103,7 +128,8 @@ public class FractController implements Initializable {
         dimX2.setText("1");
         dimY1.setText("-1");
         dimY2.setText("1");
-        gap.setText("0.001");
+        gap.setText("0.004");
+        zoomCoef.setText("2");
         
     }
 

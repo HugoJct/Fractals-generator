@@ -8,9 +8,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
    <children>
-      <VBox prefHeight="550.0" prefWidth="237.0" style="-fx-background-color: #3F2B63;">
+      <VBox prefHeight="500.0" prefWidth="237.0" style="-fx-background-color: #3F2B63;">
          <children>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="215.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
                <font>
@@ -92,19 +92,19 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="49.0" translateX="32.0" />
+                        <TextField fx:id="zoomCoef" prefHeight="25.0" prefWidth="49.0" translateX="32.0" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <HBox prefHeight="19.0" prefWidth="200.0" translateY="10.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="61.0" text="+" textAlignment="CENTER" translateX="40.0">
+                  <Button fx:id="zoomOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#zoomOut" prefHeight="57.0" prefWidth="61.0" text="-" textAlignment="CENTER" translateX="40.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="61.0" text="-" textAlignment="CENTER" translateX="80.0">
+                  <Button fx:id="zoomIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#zoomIn" prefHeight="57.0" prefWidth="61.0" text="+" textAlignment="CENTER" translateX="80.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -122,6 +122,6 @@
             </VBox>
          </children>
       </VBox>
-      <ImageView fx:id="fractalView" fitHeight="550.0" fitWidth="521.0" layoutX="237.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fractalView" fitHeight="500.0" fitWidth="500.0" layoutX="237.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
