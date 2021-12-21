@@ -17,10 +17,12 @@ public class Main extends Application {
 	AutoCloseable controller;
 
 	public static void main(String[] args) {
-		Fractal f = new FractalBuilder().setComplexConstant(new Complex(-0.7269, 0.1889))
+		/* Fractal f = new FractalBuilder().setComplexConstant(new Complex(-0.7269, 0.1889))
 				.setDefinitionDomain(new FractalDefinitionDomain(-1, 1, -1, 1))
 				.setGap(0.01)
-				.buildJulia();
+				.buildJulia();*/
+
+		TestLoadAverage.testCompute();
 
 		if (args.length == 3) {
 			String[] cpxValAsString = {args[1],args[2]};
