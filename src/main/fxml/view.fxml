@@ -8,9 +8,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
+<AnchorPane maxHeight="500" maxWidth="750" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
    <children>
-      <VBox prefHeight="500.0" prefWidth="237.0" style="-fx-background-color: #3F2B63;">
+      <VBox prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;">
          <children>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="241.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
                <font>
@@ -122,6 +122,68 @@
             </VBox>
          </children>
       </VBox>
-      <ImageView fx:id="fractalView" fitHeight="500.0" fitWidth="500.0" layoutX="237.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox layoutX="250.0" layoutY="-5.0" prefHeight="500.0" prefWidth="500.0">
+         <children>
+            <StackPane prefHeight="500.0" prefWidth="500.0" translateY="5.0">
+               <children>
+                  <ImageView fx:id="fractalView" fitHeight="503.0" fitWidth="503.0" pickOnBounds="true" preserveRatio="true" />
+                  <Pane prefHeight="500.0" prefWidth="500.0" translateX="5.0" translateY="5.0">
+                     <children>
+                        <VBox prefHeight="62.0" prefWidth="503.0">
+                           <children>
+                              <HBox prefHeight="21.0" prefWidth="503.0">
+                                 <children>
+                                    <HBox prefHeight="21.0" prefWidth="450.0">
+                                       <children>
+                                          <Label text="expr : " />
+                                          <Label text="real" />
+                                          <Label text="imaginary" translateX="3.0" />
+                                          <Label text="i" translateX="2.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Gap : " />
+                                          <Label text="gapValue" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="41.0" prefWidth="503.0">
+                                 <children>
+                                    <VBox prefHeight="41.0" prefWidth="450.0">
+                                       <children>
+                                          <HBox prefHeight="20.0" prefWidth="272.0">
+                                             <children>
+                                                <Label text="X dimension : " />
+                                                <Label text="x1" />
+                                                <Label text="x2" translateX="3.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="17.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Y dimension : " />
+                                                <Label text="y1" />
+                                                <Label text="y2" translateX="3.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox prefHeight="41.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Zoom : x" />
+                                          <Label text="zoomValue" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

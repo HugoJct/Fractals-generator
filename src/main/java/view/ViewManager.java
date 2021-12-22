@@ -12,6 +12,7 @@ public class ViewManager {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view.fxml"));
             Stage primaryStage = new Stage();
             primaryStage.setScene(new Scene(root));
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
