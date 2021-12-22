@@ -35,7 +35,7 @@ public class FractalThread extends Thread {
 					x = (int) (((i - f.getDomain().getMin().getRealPart())) / f.getGap());
 					y = ((j - f.getDomain().getMin().getImaginaryPart()) / f.getGap()) + (count * offset) - count;
 
-					int color = RGBFromIndex2(index); // TODO process index to get color
+					int color = RGBFromHSB(index); // TODO process index to get color
 
 					img.setRGB(x, (int) y, color);
 				} while (index >= 0);
@@ -47,7 +47,7 @@ public class FractalThread extends Thread {
 		System.out.println("Done !");
 	}
 
-	private int RGBFromIndex2(int index) {
+	private int RGBFromHSB(int index) {
 		if (index == 1000)
 			return 0;
 		return Color.HSBtoRGB((float) index / 1000, 0.7f, 0.7f);
