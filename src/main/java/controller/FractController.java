@@ -196,6 +196,7 @@ public class FractController implements Initializable {
         feedbackComponentList.add(stuff5);
         feedbackComponentList.add(stuff6);
         feedbackComponentList.add(stuff7);
+        feedbackComponentList.add(resolution);
     }
 
     @FXML
