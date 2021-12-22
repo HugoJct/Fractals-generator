@@ -1,13 +1,17 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.awt.image.BufferedImage;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,31 +25,67 @@ import model.FractalDefinitionDomain;
 import model.FractalDesigner;
 
 public class FractController implements Initializable {
-    
+
     @FXML
-    private TextField imaginary;
+    private Label imaginaryValue;
     @FXML
-    private TextField real;
+    private Button zoomOut;
+    @FXML
+    private Label x1Value;
     @FXML
     private TextField dimX2;
     @FXML
-    private TextField dimY1;
+    private CheckBox feedback;
     @FXML
     private TextField dimX1;
     @FXML
-    private TextField dimY2;
+    private Label stuff6;
+    @FXML
+    private Label y2Value;
+    @FXML
+    private Label stuff4;
     @FXML
     private TextField gap;
     @FXML
-    private TextField zoomCoef;
+    private Label stuff5;
     @FXML
     private Button createFract;
     @FXML
-    private ImageView fractalView;
+    private Label y1Value;
+    @FXML
+    private Label zoomValue;
+    @FXML
+    private Label gapValue;
     @FXML
     private Button zoomIn;
     @FXML
-    private Button zoomOut;
+    private Label stuff2;
+    @FXML
+    private Label stuff3;
+    @FXML
+    private TextField real;
+    @FXML
+    private Label stuff1;
+    @FXML
+    private TextField zoomCoef;
+    @FXML
+    private Label x2Value;
+    @FXML
+    private TextField dimY1;
+    @FXML
+    private Label realValue;
+    @FXML
+    private TextField dimY2;
+    @FXML
+    private TextField imaginary;
+    @FXML
+    private ImageView fractalView;
+    @FXML
+    private Label stuff7;
+    @FXML
+    private Label resolution;
+    private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
+    private boolean feedbackState = true;
 
     public FractController(String real, String imaginary) {
 
@@ -84,6 +124,18 @@ public class FractController implements Initializable {
         designer.writeImage(buffImg);
         Image image = convertToFxImage(buffImg);
         fractalView.setImage(image);
+
+        realValue.setText(real.getText());
+        imaginaryValue.setText(imaginary.getText());
+        gapValue.setText(gap.getText());
+        x1Value.setText(dimX1.getText());
+        x2Value.setText(dimX2.getText());
+        y1Value.setText(dimY1.getText());
+        y2Value.setText(dimY2.getText());
+        zoomValue.setText(zoomCoef.getText());
+        resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+        + " * " 
+        + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText()))));
     }
 
     private static Image convertToFxImage(BufferedImage image) {
@@ -127,9 +179,40 @@ public class FractController implements Initializable {
         dimX2.setText("1");
         dimY1.setText("-1");
         dimY2.setText("1");
-        gap.setText("0.004");
+        gap.setText("0.002");
         zoomCoef.setText("2");
+        feedbackComponentList.add(realValue);
+        feedbackComponentList.add(imaginaryValue);
+        feedbackComponentList.add(gapValue);
+        feedbackComponentList.add(x1Value);
+        feedbackComponentList.add(x2Value);
+        feedbackComponentList.add(y1Value);
+        feedbackComponentList.add(y2Value);
+        feedbackComponentList.add(zoomValue);
+        feedbackComponentList.add(stuff1);
+        feedbackComponentList.add(stuff2);
+        feedbackComponentList.add(stuff3);
+        feedbackComponentList.add(stuff4);
+        feedbackComponentList.add(stuff5);
+        feedbackComponentList.add(stuff6);
+        feedbackComponentList.add(stuff7);
+        feedbackComponentList.add(resolution);
+    }
+
+    @FXML
+    void checkFeedbackState(ActionEvent event) {
         
+        if (feedbackState) {
+            for (int i = 0 ; i<feedbackComponentList.size() ; i++) {
+                feedbackComponentList.get(i).setVisible(false);
+                feedbackState = false;
+            }
+        } else {
+            for (int i = 0 ; i<feedbackComponentList.size() ; i++) {
+                feedbackComponentList.get(i).setVisible(true);
+                feedbackState = true;
+            }   
+        }
     }
 
 }
