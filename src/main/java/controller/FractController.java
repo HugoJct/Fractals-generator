@@ -80,6 +80,10 @@ public class FractController implements Initializable {
     private TextField imaginary;
     @FXML
     private ImageView fractalView;
+    @FXML
+    private Label stuff7;
+    @FXML
+    private Label resolution;
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
     private boolean feedbackState = true;
 
@@ -129,6 +133,9 @@ public class FractController implements Initializable {
         y1Value.setText(dimY1.getText());
         y2Value.setText(dimY2.getText());
         zoomValue.setText(zoomCoef.getText());
+        resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+        + " * " 
+        + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText()))));
     }
 
     private static Image convertToFxImage(BufferedImage image) {
@@ -172,7 +179,7 @@ public class FractController implements Initializable {
         dimX2.setText("1");
         dimY1.setText("-1");
         dimY2.setText("1");
-        gap.setText("0.004");
+        gap.setText("0.002");
         zoomCoef.setText("2");
         feedbackComponentList.add(realValue);
         feedbackComponentList.add(imaginaryValue);
@@ -188,6 +195,7 @@ public class FractController implements Initializable {
         feedbackComponentList.add(stuff4);
         feedbackComponentList.add(stuff5);
         feedbackComponentList.add(stuff6);
+        feedbackComponentList.add(stuff7);
     }
 
     @FXML

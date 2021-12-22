@@ -144,13 +144,13 @@
                                  <children>
                                     <HBox prefHeight="21.0" prefWidth="450.0">
                                        <children>
-                                          <Label fx:id="stuff1" text="expr : " />
+                                          <Label fx:id="stuff1" text="Expr : " />
                                           <Label fx:id="realValue" text="real" />
                                           <Label fx:id="imaginaryValue" text="imaginary" translateX="3.0" />
                                           <Label fx:id="stuff2" text="i" translateX="2.0" />
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                    <HBox prefHeight="21.0" prefWidth="280.0">
                                        <children>
                                           <Label fx:id="stuff3" text="Gap : " />
                                           <Label fx:id="gapValue" text="gapValue" />
@@ -178,12 +178,18 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="41.0" prefWidth="200.0">
+                                    <VBox prefHeight="41.0" prefWidth="281.0">
                                        <children>
-                                          <HBox prefHeight="41.0" prefWidth="200.0">
+                                          <HBox prefHeight="22.0" prefWidth="127.0">
                                              <children>
                                                 <Label fx:id="stuff5" text="Zoom : x" />
                                                 <Label fx:id="zoomValue" text="zoomValue" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" translateY="5.0">
+                                             <children>
+                                                <Label fx:id="stuff7" text="Resolution : " />
+                                                <Label fx:id="resolution" text="U/N" />
                                              </children>
                                           </HBox>
                                        </children>
