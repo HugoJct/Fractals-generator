@@ -135,15 +135,15 @@
                                  <children>
                                     <HBox prefHeight="21.0" prefWidth="450.0">
                                        <children>
-                                          <Label text="expr : " />
+                                          <Label fx:id="stuff1" text="expr : " />
                                           <Label fx:id="realValue" text="real" />
                                           <Label fx:id="imaginaryValue" text="imaginary" translateX="3.0" />
-                                          <Label text="i" translateX="2.0" />
+                                          <Label fx:id="stuff2" text="i" translateX="2.0" />
                                        </children>
                                     </HBox>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Label text="Gap : " />
+                                          <Label fx:id="stuff3" text="Gap : " />
                                           <Label fx:id="gapValue" text="gapValue" />
                                        </children>
                                     </HBox>
@@ -155,26 +155,35 @@
                                        <children>
                                           <HBox prefHeight="20.0" prefWidth="272.0">
                                              <children>
-                                                <Label text="X dimension : " />
+                                                <Label fx:id="stuff4" text="X dimension : " />
                                                 <Label text="x1" fx:id="x1Value" />
                                                 <Label text="x2" translateX="3.0" fx:id="x2Value" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="17.0" prefWidth="500.0">
                                              <children>
-                                                <Label text="Y dimension : " />
+                                                <Label fx:id="stuff6" text="Y dimension : " />
                                                 <Label fx:id="y1Value" text="y1" />
                                                 <Label fx:id="y2Value" text="y2" translateX="3.0" />
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox prefHeight="41.0" prefWidth="200.0">
+                                    <VBox prefHeight="41.0" prefWidth="200.0">
                                        <children>
-                                          <Label text="Zoom : x" />
-                                          <Label fx:id="zoomValue" text="zoomValue" />
+                                          <HBox prefHeight="41.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="stuff5" text="Zoom : x" />
+                                                <Label fx:id="zoomValue" text="zoomValue" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="41.0" prefWidth="127.0">
+                                             <children>
+                                                <CheckBox fx:id="feedback" mnemonicParsing="false" onAction="#checkFeedbackState" text="disable feedback" />
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>

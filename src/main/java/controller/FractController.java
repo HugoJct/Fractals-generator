@@ -1,13 +1,16 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.awt.image.BufferedImage;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -22,9 +25,31 @@ import model.FractalDefinitionDomain;
 import model.FractalDesigner;
 
 public class FractController implements Initializable {
-    
+
     @FXML
     private Label imaginaryValue;
+    @FXML
+    private Button zoomOut;
+    @FXML
+    private Label x1Value;
+    @FXML
+    private TextField dimX2;
+    @FXML
+    private CheckBox feedback;
+    @FXML
+    private TextField dimX1;
+    @FXML
+    private Label stuff6;
+    @FXML
+    private Label y2Value;
+    @FXML
+    private Label stuff4;
+    @FXML
+    private TextField gap;
+    @FXML
+    private Label stuff5;
+    @FXML
+    private Button createFract;
     @FXML
     private Label y1Value;
     @FXML
@@ -34,15 +59,15 @@ public class FractController implements Initializable {
     @FXML
     private Button zoomIn;
     @FXML
-    private Button zoomOut;
+    private Label stuff2;
     @FXML
-    private Label x1Value;
+    private Label stuff3;
     @FXML
     private TextField real;
     @FXML
-    private TextField zoomCoef;
+    private Label stuff1;
     @FXML
-    private TextField dimX2;
+    private TextField zoomCoef;
     @FXML
     private Label x2Value;
     @FXML
@@ -50,19 +75,13 @@ public class FractController implements Initializable {
     @FXML
     private Label realValue;
     @FXML
-    private TextField dimX1;
-    @FXML
     private TextField dimY2;
     @FXML
     private TextField imaginary;
     @FXML
-    private Label y2Value;
-    @FXML
-    private TextField gap;
-    @FXML
-    private Button createFract;
-    @FXML
     private ImageView fractalView;
+    private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
+    private boolean feedbackState = true;
 
     public FractController(String real, String imaginary) {
 
@@ -155,7 +174,36 @@ public class FractController implements Initializable {
         dimY2.setText("1");
         gap.setText("0.004");
         zoomCoef.setText("2");
+        feedbackComponentList.add(realValue);
+        feedbackComponentList.add(imaginaryValue);
+        feedbackComponentList.add(gapValue);
+        feedbackComponentList.add(x1Value);
+        feedbackComponentList.add(x2Value);
+        feedbackComponentList.add(y1Value);
+        feedbackComponentList.add(y2Value);
+        feedbackComponentList.add(zoomValue);
+        feedbackComponentList.add(stuff1);
+        feedbackComponentList.add(stuff2);
+        feedbackComponentList.add(stuff3);
+        feedbackComponentList.add(stuff4);
+        feedbackComponentList.add(stuff5);
+        feedbackComponentList.add(stuff6);
+    }
+
+    @FXML
+    void checkFeedbackState(ActionEvent event) {
         
+        if (feedbackState) {
+            for (int i = 0 ; i<feedbackComponentList.size() ; i++) {
+                feedbackComponentList.get(i).setVisible(false);
+                feedbackState = false;
+            }
+        } else {
+            for (int i = 0 ; i<feedbackComponentList.size() ; i++) {
+                feedbackComponentList.get(i).setVisible(true);
+                feedbackState = true;
+            }   
+        }
     }
 
 }
