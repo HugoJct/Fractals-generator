@@ -136,15 +136,15 @@
                                     <HBox prefHeight="21.0" prefWidth="450.0">
                                        <children>
                                           <Label text="expr : " />
-                                          <Label text="real" />
-                                          <Label text="imaginary" translateX="3.0" />
+                                          <Label fx:id="realValue" text="real" />
+                                          <Label fx:id="imaginaryValue" text="imaginary" translateX="3.0" />
                                           <Label text="i" translateX="2.0" />
                                        </children>
                                     </HBox>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <Label text="Gap : " />
-                                          <Label text="gapValue" />
+                                          <Label fx:id="gapValue" text="gapValue" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -156,15 +156,15 @@
                                           <HBox prefHeight="20.0" prefWidth="272.0">
                                              <children>
                                                 <Label text="X dimension : " />
-                                                <Label text="x1" />
-                                                <Label text="x2" translateX="3.0" />
+                                                <Label text="x1" fx:id="x1Value" />
+                                                <Label text="x2" translateX="3.0" fx:id="x2Value" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="17.0" prefWidth="500.0">
                                              <children>
                                                 <Label text="Y dimension : " />
-                                                <Label text="y1" />
-                                                <Label text="y2" translateX="3.0" />
+                                                <Label fx:id="y1Value" text="y1" />
+                                                <Label fx:id="y2Value" text="y2" translateX="3.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -172,7 +172,7 @@
                                     <HBox prefHeight="41.0" prefWidth="200.0">
                                        <children>
                                           <Label text="Zoom : x" />
-                                          <Label text="zoomValue" />
+                                          <Label fx:id="zoomValue" text="zoomValue" />
                                        </children>
                                     </HBox>
                                  </children>

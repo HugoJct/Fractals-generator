@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,29 +24,45 @@ import model.FractalDesigner;
 public class FractController implements Initializable {
     
     @FXML
-    private TextField imaginary;
+    private Label imaginaryValue;
+    @FXML
+    private Label y1Value;
+    @FXML
+    private Label zoomValue;
+    @FXML
+    private Label gapValue;
+    @FXML
+    private Button zoomIn;
+    @FXML
+    private Button zoomOut;
+    @FXML
+    private Label x1Value;
     @FXML
     private TextField real;
     @FXML
+    private TextField zoomCoef;
+    @FXML
     private TextField dimX2;
     @FXML
+    private Label x2Value;
+    @FXML
     private TextField dimY1;
+    @FXML
+    private Label realValue;
     @FXML
     private TextField dimX1;
     @FXML
     private TextField dimY2;
     @FXML
-    private TextField gap;
+    private TextField imaginary;
     @FXML
-    private TextField zoomCoef;
+    private Label y2Value;
+    @FXML
+    private TextField gap;
     @FXML
     private Button createFract;
     @FXML
     private ImageView fractalView;
-    @FXML
-    private Button zoomIn;
-    @FXML
-    private Button zoomOut;
 
     public FractController(String real, String imaginary) {
 
@@ -84,6 +101,15 @@ public class FractController implements Initializable {
         designer.writeImage(buffImg);
         Image image = convertToFxImage(buffImg);
         fractalView.setImage(image);
+
+        realValue.setText(real.getText());
+        imaginaryValue.setText(imaginary.getText());
+        gapValue.setText(gap.getText());
+        x1Value.setText(dimX1.getText());
+        x2Value.setText(dimX2.getText());
+        y1Value.setText(dimY1.getText());
+        y2Value.setText(dimY2.getText());
+        zoomValue.setText(zoomCoef.getText());
     }
 
     private static Image convertToFxImage(BufferedImage image) {
