@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.effect.*?>
@@ -8,11 +9,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="500" maxWidth="750.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
+<AnchorPane maxHeight="500.0" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FractController">
    <children>
       <HBox prefHeight="500.0" prefWidth="1000.0">
          <children>
-            <VBox prefHeight="503.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;">
+            <VBox prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;">
                <children>
                   <Label alignment="CENTER" prefHeight="29.0" prefWidth="241.0" text="Fractal menu" textAlignment="CENTER" textFill="#da0000">
                      <font>
@@ -133,11 +134,11 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="503.0" prefWidth="202.0" style="-fx-background-color: #3F2B63;">
+            <VBox prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;">
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="202.0" text="Multiple view generator" textAlignment="CENTER" textFill="#cd0000">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="250.0" text="Multiple view generator" textAlignment="CENTER" textFill="#cd0000">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -165,14 +166,44 @@
                         </VBox>
                      </children>
                   </VBox>
+                  <VBox prefHeight="272.0" prefWidth="249.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="250.0" text="Shifting" textAlignment="CENTER" textFill="#cd0000" translateY="15.0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <VBox prefHeight="213.0" prefWidth="249.0" translateY="30.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="69.0" prefWidth="249.0" style="-fx-background-image: d;">
+                                 <children>
+                                    <Button fx:id="up" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="up" stylesheets="@btn_style.css" text="UP" textAlignment="CENTER" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="249.0">
+                                 <children>
+                                    <Button fx:id="left" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="left" stylesheets="@btn_style.css" text="LEFT" />
+                                    <HBox prefHeight="70.0" prefWidth="77.0" />
+                                    <Button fx:id="right" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="right" stylesheets="@btn_style.css" text="RIGHT" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="70.0" prefWidth="249.0">
+                                 <children>
+                                    <Button fx:id="down" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="down" stylesheets="@btn_style.css" text="DOWN" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="500.0" prefWidth="500.0">
+            <VBox>
                <children>
-                  <StackPane prefHeight="500.0" prefWidth="500.0" translateY="5.0">
+                  <StackPane prefHeight="503.0" prefWidth="503.0">
                      <children>
                         <ImageView fx:id="fractalView" fitHeight="503.0" fitWidth="503.0" pickOnBounds="true" preserveRatio="true" />
-                        <Pane prefHeight="500.0" prefWidth="500.0" translateX="5.0" translateY="5.0">
+                        <Pane prefHeight="503.0" prefWidth="503.0" translateX="5.0" translateY="5.0">
                            <children>
                               <VBox prefHeight="62.0" prefWidth="503.0">
                                  <children>
@@ -183,7 +214,7 @@
                                                 <Label fx:id="stuff1" text="Expr : " />
                                                 <Label fx:id="realValue" text="real" />
                                                 <Label fx:id="imaginaryValue" text="imaginary" translateX="3.0" />
-                                                <Label fx:id="stuff2" text="i" translateX="2.0" />
+                                                <Label fx:id="stuff2" text="i" translateX="4.0" />
                                              </children>
                                           </HBox>
                                           <HBox prefHeight="21.0" prefWidth="280.0">
