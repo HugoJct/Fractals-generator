@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -20,6 +19,12 @@ public class FractalDesigner {
 		this.fr = f;
 		this.f = new File(
 				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + ".png");
+	}
+
+	public FractalDesigner(Fractal f, int fractID) {
+		this.fr = f;
+		this.f = new File(
+				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "_" + fractID + ".png");
 	}
 
 	private double standardDev(double a, double b) {

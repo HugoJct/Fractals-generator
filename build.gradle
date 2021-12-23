@@ -15,8 +15,8 @@ repositories {
 sourceSets {
   main {
     resources {
-        srcDirs = ["src/main/fxml"]
-        includes = ["**/*.fxml"]
+        srcDirs = ["src/main/fxml", "src/main/css", "src/main/assets"]
+        includes = ["**/*.fxml", "**/*.css", "**/*.png"]
     }
   }
 }

@@ -31,7 +31,11 @@ public class FractController implements Initializable {
     @FXML
     private Button zoomOut;
     @FXML
+    private Button createMultipleView;
+    @FXML
     private Label x1Value;
+    @FXML
+    private Label resolution;
     @FXML
     private TextField dimX2;
     @FXML
@@ -39,9 +43,13 @@ public class FractController implements Initializable {
     @FXML
     private TextField dimX1;
     @FXML
+    private TextField nbrView;
+    @FXML
     private Label stuff6;
     @FXML
     private Label y2Value;
+    @FXML
+    private Label stuff7;
     @FXML
     private Label stuff4;
     @FXML
@@ -81,9 +89,16 @@ public class FractController implements Initializable {
     @FXML
     private ImageView fractalView;
     @FXML
-    private Label stuff7;
+    private Button up;
     @FXML
-    private Label resolution;
+    private Button left;
+    @FXML
+    private Button right;
+    @FXML
+    private Button down;
+    @FXML
+    private Button cam;
+    
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
     private boolean feedbackState = true;
 
@@ -97,45 +112,37 @@ public class FractController implements Initializable {
     @FXML
     void generateFractal(ActionEvent event) {
 
-        if(imaginary.getText().trim().isEmpty() 
-            || real.getText().trim().isEmpty()
-            || dimX2.getText().trim().isEmpty()
-            || dimX2.getText().trim().isEmpty()
-            || dimY1.getText().trim().isEmpty()
-            || dimY2.getText().trim().isEmpty()
-            || gap.getText().trim().isEmpty()) {
-                System.out.println("Some fields are empty, please check");
-                return;
+        if(isFractalMenuFilled()) {
+
+            Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
+                Double.parseDouble(dimX1.getText()), 
+                Double.parseDouble(dimX2.getText()), 
+                Double.parseDouble(dimY1.getText()), 
+                Double.parseDouble(dimY2.getText())))
+                .setGap(Double.parseDouble(gap.getText()))
+                .setComplexConstant(new Complex(
+                    Double.parseDouble(real.getText()), 
+                    Double.parseDouble(imaginary.getText())))
+                    .buildJulia();
+            
+            FractalDesigner designer = new FractalDesigner(f);
+            BufferedImage buffImg = designer.drawFractal();
+            designer.writeImage(buffImg);
+            Image image = convertToFxImage(buffImg);
+            fractalView.setImage(image);
+
+            realValue.setText(real.getText());
+            imaginaryValue.setText(imaginary.getText());
+            gapValue.setText(gap.getText());
+            x1Value.setText(dimX1.getText());
+            x2Value.setText(dimX2.getText());
+            y1Value.setText(dimY1.getText());
+            y2Value.setText(dimY2.getText());
+            zoomValue.setText(zoomCoef.getText());
+            resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+            + " * " 
+            + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText()))));
         }
-
-        Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
-            Double.parseDouble(dimX1.getText()), 
-            Double.parseDouble(dimX2.getText()), 
-            Double.parseDouble(dimY1.getText()), 
-            Double.parseDouble(dimY2.getText())))
-            .setGap(Double.parseDouble(gap.getText()))
-            .setComplexConstant(new Complex(
-                Double.parseDouble(real.getText()), 
-                Double.parseDouble(imaginary.getText())))
-                .buildJulia();
-        
-        FractalDesigner designer = new FractalDesigner(f);
-        BufferedImage buffImg = designer.drawFractal();
-        designer.writeImage(buffImg);
-        Image image = convertToFxImage(buffImg);
-        fractalView.setImage(image);
-
-        realValue.setText(real.getText());
-        imaginaryValue.setText(imaginary.getText());
-        gapValue.setText(gap.getText());
-        x1Value.setText(dimX1.getText());
-        x2Value.setText(dimX2.getText());
-        y1Value.setText(dimY1.getText());
-        y2Value.setText(dimY2.getText());
-        zoomValue.setText(zoomCoef.getText());
-        resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
-        + " * " 
-        + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText()))));
     }
 
     private static Image convertToFxImage(BufferedImage image) {
@@ -154,21 +161,25 @@ public class FractController implements Initializable {
 
     @FXML
     void zoomIn(ActionEvent event) {
-        gap.setText(Double.toString(Double.parseDouble(gap.getText())/Double.parseDouble(zoomCoef.getText())));
-        dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())/Double.parseDouble(zoomCoef.getText())));
-        dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())/Double.parseDouble(zoomCoef.getText())));
-        dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())/Double.parseDouble(zoomCoef.getText())));
-        dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())/Double.parseDouble(zoomCoef.getText())));
-        generateFractal(event);
+        if (isZoomFilled()) {
+            gap.setText(Double.toString(Double.parseDouble(gap.getText())/Double.parseDouble(zoomCoef.getText())));
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())/Double.parseDouble(zoomCoef.getText())));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())/Double.parseDouble(zoomCoef.getText())));
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())/Double.parseDouble(zoomCoef.getText())));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())/Double.parseDouble(zoomCoef.getText())));
+            generateFractal(event);
+        }
     }
     @FXML
     void zoomOut(ActionEvent event) {
-        gap.setText(Double.toString(Double.parseDouble(gap.getText())*Double.parseDouble(zoomCoef.getText())));
-        dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())*Double.parseDouble(zoomCoef.getText())));
-        dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())*Double.parseDouble(zoomCoef.getText())));
-        dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())*Double.parseDouble(zoomCoef.getText())));
-        dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())*Double.parseDouble(zoomCoef.getText())));
-        generateFractal(event);
+        if (isZoomFilled()) {
+            gap.setText(Double.toString(Double.parseDouble(gap.getText())*Double.parseDouble(zoomCoef.getText())));
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())*Double.parseDouble(zoomCoef.getText())));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())*Double.parseDouble(zoomCoef.getText())));
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())*Double.parseDouble(zoomCoef.getText())));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())*Double.parseDouble(zoomCoef.getText())));
+            generateFractal(event);
+        }
     }
 
     @Override
@@ -214,5 +225,96 @@ public class FractController implements Initializable {
             }   
         }
     }
+
+    @FXML
+    void generateMultipleView(ActionEvent event) {
+        if(isFractalMenuFilled() && isZoomFilled() && isNbrOfViewFilled()) {
+            int nbrView = Integer.parseInt(this.nbrView.getText());
+
+            for (int i = 0 ; i<nbrView ; i++) {
+                Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
+                    Double.parseDouble(dimX1.getText()), 
+                    Double.parseDouble(dimX2.getText()), 
+                    Double.parseDouble(dimY1.getText()), 
+                    Double.parseDouble(dimY2.getText())))
+                    .setGap(Double.parseDouble(gap.getText()))
+                    .setComplexConstant(new Complex(
+                        Double.parseDouble(real.getText()), 
+                        Double.parseDouble(imaginary.getText())))
+                        .buildJulia();
+                
+                FractalDesigner designer = new FractalDesigner(f, (i+1));
+                BufferedImage buffImg = designer.drawFractal();
+                designer.writeImage(buffImg);
+                Image image = convertToFxImage(buffImg);
+                fractalView.setImage(image);
+        
+                realValue.setText(real.getText());
+                imaginaryValue.setText(imaginary.getText());
+                gapValue.setText(gap.getText());
+                x1Value.setText(dimX1.getText());
+                x2Value.setText(dimX2.getText());
+                y1Value.setText(dimY1.getText());
+                y2Value.setText(dimY2.getText());
+                zoomValue.setText(zoomCoef.getText());
+                resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+                + " * " 
+                + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText())))); 
+                zoomIn(event);   
+            }
+        }
+    }
+
+    private boolean isFractalMenuFilled() {
+        if(imaginary.getText().trim().isEmpty() 
+        || real.getText().trim().isEmpty()
+        || dimX2.getText().trim().isEmpty()
+        || dimX2.getText().trim().isEmpty()
+        || dimY1.getText().trim().isEmpty()
+        || dimY2.getText().trim().isEmpty()
+        || gap.getText().trim().isEmpty()) {
+            System.out.println("Some fields of fractal menu are empty, please check");
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean isZoomFilled() {
+        if (zoomCoef.getText().trim().isEmpty()) {
+            System.out.println("zoom coef is empty, please check");
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean isNbrOfViewFilled() {
+        if (nbrView.getText().trim().isEmpty()) {
+            System.out.println("number of view is empty, please check");
+            return false;
+        } else {
+            return true;
+        }    
+    }
+
+    @FXML
+    void shiftUp(ActionEvent event) {
+
+    }
+
+    @FXML
+    void shiftLeft(ActionEvent event) {
+
+    }
+
+    @FXML
+    void shiftRight(ActionEvent event) {
+
+    }
+
+    @FXML
+    void shiftDown(ActionEvent event) {
+
+    }
+
 
 }
