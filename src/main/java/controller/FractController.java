@@ -96,6 +96,8 @@ public class FractController implements Initializable {
     private Button right;
     @FXML
     private Button down;
+    @FXML
+    private Button cam;
     
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
     private boolean feedbackState = true;
