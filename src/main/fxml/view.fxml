@@ -177,19 +177,19 @@
                            <children>
                               <HBox alignment="TOP_CENTER" prefHeight="69.0" prefWidth="249.0" style="-fx-background-image: d;">
                                  <children>
-                                    <Button fx:id="up" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="up" stylesheets="@btn_style.css" text="UP" textAlignment="CENTER" />
+                                    <Button fx:id="up" contentDisplay="CENTER" mnemonicParsing="false" onAction="#shiftUp" prefHeight="70.0" prefWidth="70.0" styleClass="up" stylesheets="@btn_style.css" text="UP" textAlignment="CENTER" />
                                  </children>
                               </HBox>
                               <HBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="249.0">
                                  <children>
-                                    <Button fx:id="left" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="left" stylesheets="@btn_style.css" text="LEFT" />
+                                    <Button fx:id="left" mnemonicParsing="false" onAction="#shiftLeft" prefHeight="70.0" prefWidth="70.0" styleClass="left" stylesheets="@btn_style.css" text="LEFT" />
                                     <HBox prefHeight="70.0" prefWidth="77.0" />
-                                    <Button fx:id="right" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="right" stylesheets="@btn_style.css" text="RIGHT" />
+                                    <Button fx:id="right" mnemonicParsing="false" onAction="#shiftRight" prefHeight="70.0" prefWidth="70.0" styleClass="right" stylesheets="@btn_style.css" text="RIGHT" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="70.0" prefWidth="249.0">
                                  <children>
-                                    <Button fx:id="down" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" styleClass="down" stylesheets="@btn_style.css" text="DOWN" />
+                                    <Button fx:id="down" mnemonicParsing="false" onAction="#shiftDown" prefHeight="70.0" prefWidth="70.0" styleClass="down" stylesheets="@btn_style.css" text="DOWN" />
                                  </children>
                               </HBox>
                            </children>
