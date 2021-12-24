@@ -27,6 +27,12 @@ public class FractalDesigner {
 				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "_" + fractID + ".png");
 	}
 
+	public FractalDesigner(Fractal f, String name, int id) {
+		this.fr = f;
+		this.f = new File(
+				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "_" + name + "_" + id +  ".png");
+	}
+
 	private double standardDev(double a, double b) {
 		if (a < 0 && b < 0) {
 			return b < a ? Math.abs(a) - Math.abs(b) : Math.abs(b) - Math.abs(a);

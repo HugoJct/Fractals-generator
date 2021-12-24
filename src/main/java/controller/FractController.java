@@ -102,6 +102,10 @@ public class FractController implements Initializable {
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
     private boolean feedbackState = true;
 
+    private Fractal f;
+    private BufferedImage buffImg;
+    private int nbrScreenshort = 1;
+
     public FractController(String real, String imaginary) {
 
     }
@@ -114,7 +118,7 @@ public class FractController implements Initializable {
 
         if(isFractalMenuFilled()) {
 
-            Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
+            f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
                 Double.parseDouble(dimX1.getText()), 
                 Double.parseDouble(dimX2.getText()), 
                 Double.parseDouble(dimY1.getText()), 
@@ -126,7 +130,7 @@ public class FractController implements Initializable {
                     .buildJulia();
             
             FractalDesigner designer = new FractalDesigner(f);
-            BufferedImage buffImg = designer.drawFractal();
+            buffImg = designer.drawFractal();
             designer.writeImage(buffImg);
             Image image = convertToFxImage(buffImg);
             fractalView.setImage(image);
@@ -232,7 +236,7 @@ public class FractController implements Initializable {
             int nbrView = Integer.parseInt(this.nbrView.getText());
 
             for (int i = 0 ; i<nbrView ; i++) {
-                Fractal f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
+                f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
                     Double.parseDouble(dimX1.getText()), 
                     Double.parseDouble(dimX2.getText()), 
                     Double.parseDouble(dimY1.getText()), 
@@ -244,7 +248,7 @@ public class FractController implements Initializable {
                         .buildJulia();
                 
                 FractalDesigner designer = new FractalDesigner(f, (i+1));
-                BufferedImage buffImg = designer.drawFractal();
+                buffImg = designer.drawFractal();
                 designer.writeImage(buffImg);
                 Image image = convertToFxImage(buffImg);
                 fractalView.setImage(image);
@@ -262,6 +266,17 @@ public class FractController implements Initializable {
                 + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText())))); 
                 zoomIn(event);   
             }
+        }
+    }
+
+    @FXML
+    void screenshot(ActionEvent event) {
+        if (f != null && buffImg != null) {
+            FractalDesigner designer = new FractalDesigner(f, "screenshot", nbrScreenshort);
+            nbrScreenshort+=1;
+            designer.writeImage(buffImg);
+        } else {
+            System.out.println("fractal not created");
         }
     }
 
