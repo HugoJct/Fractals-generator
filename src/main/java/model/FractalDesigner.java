@@ -23,8 +23,9 @@ public class FractalDesigner {
 
 	public FractalDesigner(Fractal f, int fractID) {
 		this.fr = f;
-		this.f = new File(
-				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "_" + fractID + ".png");
+		File folder = new File(f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart());
+		folder.mkdir();
+		this.f = new File(f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "/" + fractID + ".png");
 	}
 
 	public FractalDesigner(Fractal f, String name, int id) {
