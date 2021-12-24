@@ -18,7 +18,7 @@ public class FractalThread extends Thread {
 	}
 
 	public void run() {
-		int x = 0;
+		double x = 0;
 		double y = 0;
 
 		try {
@@ -32,12 +32,12 @@ public class FractalThread extends Thread {
 					double i = f.getLastComputed().getRealPart();
 					double j = f.getLastComputed().getImaginaryPart();
 
-					x = (int) (((i - f.getDomain().getMin().getRealPart())) / f.getGap());
+					x = ((i - f.getDomain().getMin().getRealPart())) / f.getGap();
 					y = ((j - f.getDomain().getMin().getImaginaryPart()) / f.getGap()) + (count * offset) - count;
 
 					int color = RGBFromHSB(index); // TODO process index to get color
 
-					img.setRGB(x, (int) y, color);
+					img.setRGB((int)Math.round(x), (int)Math.round(y), color);
 				} while (index >= 0);
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
