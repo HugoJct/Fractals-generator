@@ -178,7 +178,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="62.0" prefWidth="249.0">
                                  <children>
-                                    <Button fx:id="cam" mnemonicParsing="false" onAction="#screenshot" prefHeight="50.0" prefWidth="50.0" styleClass="cam" stylesheets="@btn_style.css" />
+                                    <Button fx:id="cam" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="cam" stylesheets="@btn_style.css" />
                                  </children>
                               </HBox>
                            </children>
