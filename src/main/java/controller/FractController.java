@@ -313,23 +313,38 @@ public class FractController implements Initializable {
 
     @FXML
     void shiftUp(ActionEvent event) {
-
+        if (isFractalMenuFilled()) {
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())-0.5));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())-0.5));
+            generateFractal(event);
+        }
     }
 
     @FXML
     void shiftLeft(ActionEvent event) {
-
+        if (isFractalMenuFilled()) {
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())-0.5));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())-0.5));
+            generateFractal(event);
+        }
     }
 
     @FXML
     void shiftRight(ActionEvent event) {
-
+        if (isFractalMenuFilled()) {
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())+0.5));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())+0.5));
+            generateFractal(event);
+        }
     }
 
     @FXML
     void shiftDown(ActionEvent event) {
-
+        if (isFractalMenuFilled()) {
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())+0.5));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())+0.5));
+            generateFractal(event);
+        }
     }
-
 
 }
