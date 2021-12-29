@@ -338,10 +338,18 @@ public class FractController implements Initializable {
             return true;
         }    
     }
+    private boolean isShiftingCoefFilled() {
+        if (shiftingCoef.getText().trim().isEmpty()) {
+            System.out.println("shifting coef is empty, please check");
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     @FXML
     void shiftUp(ActionEvent event) {
-        if (isFractalMenuFilled()) {
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
             dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())-Double.parseDouble(shiftingCoef.getText())));
             dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())-Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
@@ -350,7 +358,7 @@ public class FractController implements Initializable {
 
     @FXML
     void shiftLeft(ActionEvent event) {
-        if (isFractalMenuFilled()) {
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
             dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())-Double.parseDouble(shiftingCoef.getText())));
             dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())-Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
@@ -359,7 +367,7 @@ public class FractController implements Initializable {
 
     @FXML
     void shiftRight(ActionEvent event) {
-        if (isFractalMenuFilled()) {
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
             dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())+Double.parseDouble(shiftingCoef.getText())));
             dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())+Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
@@ -368,7 +376,7 @@ public class FractController implements Initializable {
 
     @FXML
     void shiftDown(ActionEvent event) {
-        if (isFractalMenuFilled()) {
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
             dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())+Double.parseDouble(shiftingCoef.getText())));
             dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())+Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
