@@ -202,7 +202,19 @@
                               <HBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="249.0">
                                  <children>
                                     <Button fx:id="left" mnemonicParsing="false" onAction="#shiftLeft" prefHeight="70.0" prefWidth="70.0" styleClass="left" stylesheets="@btn_style.css" text="LEFT" />
-                                    <HBox prefHeight="70.0" prefWidth="77.0" />
+                                    <HBox alignment="CENTER" prefHeight="70.0" prefWidth="80.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Label contentDisplay="CENTER" prefHeight="23.0" prefWidth="70.0" text="Shifting coef" textFill="WHITE" />
+                                                <HBox alignment="CENTER" prefHeight="42.0" prefWidth="80.0">
+                                                   <children>
+                                                      <TextField fx:id="shiftingCoef" alignment="CENTER" prefHeight="25.0" prefWidth="61.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children></HBox>
                                     <Button fx:id="right" mnemonicParsing="false" onAction="#shiftRight" prefHeight="70.0" prefWidth="70.0" styleClass="right" stylesheets="@btn_style.css" text="RIGHT" />
                                  </children>
                               </HBox>
