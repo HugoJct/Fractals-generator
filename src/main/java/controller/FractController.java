@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -114,12 +115,11 @@ public class FractController implements Initializable {
     private BufferedImage buffImg;
     private int nbrScreenshort = 1;
 
-    public FractController(String real, String imaginary) {
+    
+    private double fieldToDouble(TextField field) {
+        return Double.parseDouble(field.getText());
+    }
 
-    }
-    public FractController() {
-        //FractalDesigner fractal = new FractalDesigner();
-    }
 
     @FXML
     void generateFractal(ActionEvent event) {
@@ -127,14 +127,14 @@ public class FractController implements Initializable {
         if(isFractalMenuFilled()) {
 
             f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
-                Double.parseDouble(dimX1.getText()), 
-                Double.parseDouble(dimX2.getText()), 
-                Double.parseDouble(dimY1.getText()), 
-                Double.parseDouble(dimY2.getText())))
-                .setGap(Double.parseDouble(gap.getText()))
+                fieldToDouble(dimX1), 
+                fieldToDouble(dimX2), 
+                fieldToDouble(dimY1), 
+                fieldToDouble(dimY2)))
+                .setGap(fieldToDouble(gap))
                 .setComplexConstant(new Complex(
-                    Double.parseDouble(real.getText()), 
-                    Double.parseDouble(imaginary.getText())))
+                    fieldToDouble(real), 
+                    fieldToDouble(imaginary)))
                     .buildJulia();
             
             FractalDesigner designer = new FractalDesigner(f);
@@ -151,9 +151,9 @@ public class FractController implements Initializable {
             y1Value.setText(dimY1.getText());
             y2Value.setText(dimY2.getText());
             zoomValue.setText(zoomCoef.getText());
-            resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+            resolution.setText((int)(fieldToDouble(dimX2)-fieldToDouble(dimX1)/fieldToDouble(gap))
             + " * " 
-            + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText()))));
+            + ((int)(fieldToDouble(dimY2))-(fieldToDouble(dimY1)))/fieldToDouble(gap));
         }
     }
 
@@ -174,22 +174,22 @@ public class FractController implements Initializable {
     @FXML
     void zoomIn(ActionEvent event) {
         if (isZoomFilled()) {
-            gap.setText(Double.toString(Double.parseDouble(gap.getText())/Double.parseDouble(zoomCoef.getText())));
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())/Double.parseDouble(zoomCoef.getText())));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())/Double.parseDouble(zoomCoef.getText())));
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())/Double.parseDouble(zoomCoef.getText())));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())/Double.parseDouble(zoomCoef.getText())));
+            gap.setText(Double.toString(fieldToDouble(gap)/fieldToDouble(zoomCoef)));
+            dimX1.setText(Double.toString(fieldToDouble(dimX1)/fieldToDouble(zoomCoef)));
+            dimX2.setText(Double.toString(fieldToDouble(dimX2)/fieldToDouble(zoomCoef)));
+            dimY1.setText(Double.toString(fieldToDouble(dimY1)/fieldToDouble(zoomCoef)));
+            dimY2.setText(Double.toString(fieldToDouble(dimY2)/fieldToDouble(zoomCoef)));
             generateFractal(event);
         }
     }
     @FXML
     void zoomOut(ActionEvent event) {
         if (isZoomFilled()) {
-            gap.setText(Double.toString(Double.parseDouble(gap.getText())*Double.parseDouble(zoomCoef.getText())));
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())*Double.parseDouble(zoomCoef.getText())));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())*Double.parseDouble(zoomCoef.getText())));
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())*Double.parseDouble(zoomCoef.getText())));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())*Double.parseDouble(zoomCoef.getText())));
+            gap.setText(Double.toString(fieldToDouble(gap)*fieldToDouble(zoomCoef)));
+            dimX1.setText(Double.toString(fieldToDouble(dimX1)*fieldToDouble(zoomCoef)));
+            dimX2.setText(Double.toString(fieldToDouble(dimX2)*fieldToDouble(zoomCoef)));
+            dimY1.setText(Double.toString(fieldToDouble(dimY1)*fieldToDouble(zoomCoef)));
+            dimY2.setText(Double.toString(fieldToDouble(dimY2)*fieldToDouble(zoomCoef)));
             generateFractal(event);
         }
     }
@@ -253,14 +253,14 @@ public class FractController implements Initializable {
 
             for (int i = 0 ; i<nbrView ; i++) {
                 f = new FractalBuilder().setDefinitionDomain(new FractalDefinitionDomain(
-                    Double.parseDouble(dimX1.getText()), 
-                    Double.parseDouble(dimX2.getText()), 
-                    Double.parseDouble(dimY1.getText()), 
-                    Double.parseDouble(dimY2.getText())))
-                    .setGap(Double.parseDouble(gap.getText()))
+                    fieldToDouble(dimX1), 
+                    fieldToDouble(dimX2), 
+                    fieldToDouble(dimY1), 
+                    fieldToDouble(dimY2)))
+                    .setGap(fieldToDouble(gap))
                     .setComplexConstant(new Complex(
-                        Double.parseDouble(real.getText()), 
-                        Double.parseDouble(imaginary.getText())))
+                        fieldToDouble(real), 
+                        fieldToDouble(imaginary)))
                         .buildJulia();
                 
                 FractalDesigner designer = new FractalDesigner(f, (i+1));
@@ -277,9 +277,9 @@ public class FractController implements Initializable {
                 y1Value.setText(dimY1.getText());
                 y2Value.setText(dimY2.getText());
                 zoomValue.setText(zoomCoef.getText());
-                resolution.setText((int)(Double.parseDouble(dimX2.getText())-Double.parseDouble(dimX1.getText())/Double.parseDouble(gap.getText()))
+                resolution.setText((int)(fieldToDouble(dimX2)-fieldToDouble(dimX1)/fieldToDouble(gap))
                 + " * " 
-                + ((int)(Double.parseDouble(dimY2.getText())-(Double.parseDouble(dimY1.getText()))/Double.parseDouble(gap.getText())))); 
+                + ((int)(fieldToDouble(dimY2)-(fieldToDouble(dimY1))/fieldToDouble(gap)))); 
                 zoomIn(event);   
             }
         }
@@ -350,8 +350,8 @@ public class FractController implements Initializable {
     @FXML
     void shiftUp(ActionEvent event) {
         if (isFractalMenuFilled() && isShiftingCoefFilled()) {
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())-Double.parseDouble(shiftingCoef.getText())));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())-Double.parseDouble(shiftingCoef.getText())));
+            dimY1.setText(Double.toString(fieldToDouble(dimY1)-fieldToDouble(shiftingCoef)));
+            dimY2.setText(Double.toString(fieldToDouble(dimY2)-fieldToDouble(shiftingCoef)));
             generateFractal(event);
         }
     }
@@ -359,8 +359,8 @@ public class FractController implements Initializable {
     @FXML
     void shiftLeft(ActionEvent event) {
         if (isFractalMenuFilled() && isShiftingCoefFilled()) {
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())-Double.parseDouble(shiftingCoef.getText())));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())-Double.parseDouble(shiftingCoef.getText())));
+            dimX1.setText(Double.toString(fieldToDouble(dimX1)-fieldToDouble(shiftingCoef)));
+            dimX2.setText(Double.toString(fieldToDouble(dimX2)-fieldToDouble(shiftingCoef)));
             generateFractal(event);
         }
     }
@@ -368,8 +368,8 @@ public class FractController implements Initializable {
     @FXML
     void shiftRight(ActionEvent event) {
         if (isFractalMenuFilled() && isShiftingCoefFilled()) {
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())+Double.parseDouble(shiftingCoef.getText())));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())+Double.parseDouble(shiftingCoef.getText())));
+            dimX1.setText(Double.toString(fieldToDouble(dimX1)+fieldToDouble(shiftingCoef)));
+            dimX2.setText(Double.toString(fieldToDouble(dimX2)+fieldToDouble(shiftingCoef)));
             generateFractal(event);
         }
     }
@@ -377,8 +377,8 @@ public class FractController implements Initializable {
     @FXML
     void shiftDown(ActionEvent event) {
         if (isFractalMenuFilled() && isShiftingCoefFilled()) {
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())+Double.parseDouble(shiftingCoef.getText())));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())+Double.parseDouble(shiftingCoef.getText())));
+            dimY1.setText(Double.toString(fieldToDouble(dimY1)+fieldToDouble(shiftingCoef)));
+            dimY2.setText(Double.toString(fieldToDouble(dimY2)+fieldToDouble(shiftingCoef)));
             generateFractal(event);
         }
     }
