@@ -2,6 +2,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.awt.image.BufferedImage;
 
@@ -11,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,6 +26,7 @@ import model.Fractal;
 import model.FractalBuilder;
 import model.FractalDefinitionDomain;
 import model.FractalDesigner;
+import model.JuliaFractalList;
 
 public class FractController implements Initializable {
 
@@ -98,6 +102,8 @@ public class FractController implements Initializable {
     private Button down;
     @FXML
     private Button cam;
+    @FXML
+    private ComboBox<String> fractalComboBox;
     
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
     private boolean feedbackState = true;
@@ -212,6 +218,13 @@ public class FractController implements Initializable {
         feedbackComponentList.add(stuff6);
         feedbackComponentList.add(stuff7);
         feedbackComponentList.add(resolution);
+
+        List<JuliaFractalList> list = (Arrays.asList(JuliaFractalList.values()));
+        ArrayList<String> strList = new ArrayList<String>();
+        for (int i = 0 ; i<list.size() ; i++) {
+            strList.add(list.get(i).toString());
+        }
+        fractalComboBox.getItems().setAll(strList);
     }
 
     @FXML
@@ -267,6 +280,18 @@ public class FractController implements Initializable {
                 zoomIn(event);   
             }
         }
+    }
+
+    @FXML
+    void loadFractalEnum(ActionEvent event) {
+        JuliaFractalList enumVal = JuliaFractalList.valueOf(fractalComboBox.getValue());
+        real.setText(Double.toString(enumVal.getReal()));
+        imaginary.setText(Double.toString(enumVal.getImaginary()));
+        gap.setText(Double.toString(enumVal.getGap()));
+        dimX1.setText(Double.toString(enumVal.getX1()));
+        dimX2.setText(Double.toString(enumVal.getX2()));
+        dimY1.setText(Double.toString(enumVal.getY1()));
+        dimY2.setText(Double.toString(enumVal.getY2()));
     }
 
     @FXML
