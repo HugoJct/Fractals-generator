@@ -103,6 +103,8 @@ public class FractController implements Initializable {
     @FXML
     private Button cam;
     @FXML
+    private TextField shiftingCoef;
+    @FXML
     private ComboBox<String> fractalComboBox;
     
     private ArrayList<Node> feedbackComponentList = new ArrayList<Node>();
@@ -202,6 +204,7 @@ public class FractController implements Initializable {
         dimY2.setText("1");
         gap.setText("0.002");
         zoomCoef.setText("2");
+        shiftingCoef.setText("2");
         feedbackComponentList.add(realValue);
         feedbackComponentList.add(imaginaryValue);
         feedbackComponentList.add(gapValue);
@@ -335,39 +338,47 @@ public class FractController implements Initializable {
             return true;
         }    
     }
+    private boolean isShiftingCoefFilled() {
+        if (shiftingCoef.getText().trim().isEmpty()) {
+            System.out.println("shifting coef is empty, please check");
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     @FXML
     void shiftUp(ActionEvent event) {
-        if (isFractalMenuFilled()) {
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())-0.5));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())-0.5));
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())-Double.parseDouble(shiftingCoef.getText())));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())-Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
         }
     }
 
     @FXML
     void shiftLeft(ActionEvent event) {
-        if (isFractalMenuFilled()) {
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())-0.5));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())-0.5));
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())-Double.parseDouble(shiftingCoef.getText())));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())-Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
         }
     }
 
     @FXML
     void shiftRight(ActionEvent event) {
-        if (isFractalMenuFilled()) {
-            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())+0.5));
-            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())+0.5));
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
+            dimX1.setText(Double.toString(Double.parseDouble(dimX1.getText())+Double.parseDouble(shiftingCoef.getText())));
+            dimX2.setText(Double.toString(Double.parseDouble(dimX2.getText())+Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
         }
     }
 
     @FXML
     void shiftDown(ActionEvent event) {
-        if (isFractalMenuFilled()) {
-            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())+0.5));
-            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())+0.5));
+        if (isFractalMenuFilled() && isShiftingCoefFilled()) {
+            dimY1.setText(Double.toString(Double.parseDouble(dimY1.getText())+Double.parseDouble(shiftingCoef.getText())));
+            dimY2.setText(Double.toString(Double.parseDouble(dimY2.getText())+Double.parseDouble(shiftingCoef.getText())));
             generateFractal(event);
         }
     }
