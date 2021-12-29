@@ -283,6 +283,18 @@ public class FractController implements Initializable {
     }
 
     @FXML
+    void loadFractalEnum(ActionEvent event) {
+        JuliaFractalList enumVal = JuliaFractalList.valueOf(fractalComboBox.getValue());
+        real.setText(Double.toString(enumVal.getReal()));
+        imaginary.setText(Double.toString(enumVal.getImaginary()));
+        gap.setText(Double.toString(enumVal.getGap()));
+        dimX1.setText(Double.toString(enumVal.getX1()));
+        dimX2.setText(Double.toString(enumVal.getX2()));
+        dimY1.setText(Double.toString(enumVal.getY1()));
+        dimY2.setText(Double.toString(enumVal.getY2()));
+    }
+
+    @FXML
     void screenshot(ActionEvent event) {
         if (f != null && buffImg != null) {
             FractalDesigner designer = new FractalDesigner(f, "screenshot", nbrScreenshort);
