@@ -21,6 +21,7 @@ public class FractalDesigner {
 				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + ".png");
 	}
 
+	// constructeur pour la création de fractales multiples dans un dossier
 	public FractalDesigner(Fractal f, int fractID) {
 		this.fr = f;
 		File folder = new File(f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart());
@@ -28,12 +29,14 @@ public class FractalDesigner {
 		this.f = new File(f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "/" + fractID + ".png");
 	}
 
+	// constructeur dédié à la capture d'écran
 	public FractalDesigner(Fractal f, String name, int id) {
 		this.fr = f;
 		this.f = new File(
 				f.getComplexConstant().getRealPart() + "_" + f.getComplexConstant().getImaginaryPart() + "_" + name + "_" + id +  ".png");
 	}
 
+	// fonction permettant de déterminer l'écart type entre a et b
 	private double standardDev(double a, double b) {
 		if (a < 0 && b < 0) {
 			return b < a ? Math.abs(a) - Math.abs(b) : Math.abs(b) - Math.abs(a);
@@ -48,10 +51,9 @@ public class FractalDesigner {
 
 	public BufferedImage drawFractal() {
 		double imagex = (fr.getDomain().getMax().getRealPart() - fr.getDomain().getMin().getRealPart()) / fr.getGap();
-		double imagey = (fr.getDomain().getMax().getImaginaryPart() - fr.getDomain().getMin().getImaginaryPart())
-				/ fr.getGap();
-		BufferedImage img = new BufferedImage((int) Math.round(imagex), (int) Math.round(imagey),
-				BufferedImage.TYPE_INT_RGB);
+		double imagey = (fr.getDomain().getMax().getImaginaryPart() - fr.getDomain().getMin().getImaginaryPart()) / fr.getGap();
+		
+		BufferedImage img = new BufferedImage((int) Math.round(imagex), (int) Math.round(imagey), BufferedImage.TYPE_INT_RGB);
 
 		int nbThreads = TestLoadAverage.getNumberOfProcessor();
 		int portionSize = (int) imagey / nbThreads;

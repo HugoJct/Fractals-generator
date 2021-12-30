@@ -42,6 +42,22 @@ Un bouton sous le label **Screen image** permet de sauvegarder dans un fichier l
 
 ---
 
+## Considérations techniques
+
+Quelques remarques sur la justification de l'implémentation de certaines fonctionalités.
+
+### Création d'une fractale
+
+Afin de générer une fractale de manière efficace, nous avons utilisé un système de **threads**. L'image à dessiner est décomposée en un nombre de parties égale au nombre de coeur du processeur. Chaque partie est écrite simultanément par son thread.
+
+**Par exemple :** si le processeur contient 4 coeurs, le dessin de la fractale sera décomposé en 4 threads qui écriront en simultané. 
+
+### Menu déroulant
+
+Dans l'interface graphique, un menu déroulant permer de lister les différentes fractales disponibles à charger. Les paramètres de chaque fractale sont stockés dans l'enum ``JuliaFractalList``.
+
+---
+
 ## Compléter
 * comment lancer les deux versions du projet (compiler/exécuter déjà expliqué)
 * exposer les points forts du projet : nombre threads par rapport au nombre de coeurs, interface et fonctionnalités (déplacement, zoom, enum), data model...
