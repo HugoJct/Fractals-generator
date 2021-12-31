@@ -41,7 +41,7 @@ public class FractalThread extends Thread {
 				} while (index >= 0);
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println(x + " " + (int) y);
+			
 		}
 		System.out.println("Done !");
 	}
