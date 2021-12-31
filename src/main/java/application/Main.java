@@ -59,7 +59,7 @@ public class Main extends Application {
             
             
             
-        } catch (ParseException e) {
+        } catch (org.apache.commons.cli.ParseException e) {
             System.out.println(e.getMessage()+"\nsalut");
             formatter.printHelp("utility-name", options);
 
