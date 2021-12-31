@@ -13,10 +13,8 @@ https://youtu.be/0-2Azjd4g3U
 
 **Avec Gradle :**
 * ``./gradlew build`` pour compiler
-* ``./gradlew run`` pour executer
-
-**Version simplifiée :**
-* ``./run`` pour compiler et executer directement
+* ``./gradlew run`` pour executer le programme en interface graphique
+* ``./gradlew run --args="<args>"`` pour exécuter le programme en mode console en spécifiant les arguments 
 
 ---
 
@@ -80,9 +78,19 @@ Dans l'interface graphique, un menu déroulant permer de lister les différentes
 
 ---
 
-## Compléter
-* comment lancer les deux versions du projet (compiler/exécuter déjà expliqué)
-* exposer les points forts du projet : nombre threads par rapport au nombre de coeurs, interface et fonctionnalités (déplacement, zoom, enum), data model...
-* les sources (si besoin) -> pas d'idée particulière
+### Datamodel
+
+L'architecture du projet est la suivante:
+
+La classe abstraite `Fractal` contient:
+* un nombre complexe représentant la valeur c dans l'expression z^2+c utilisée pour le calcul de l'indice de divergence du complexe.
+* un ensemble de définition, représentant la zone du plan sur laquelle le calcul sera effectué
+* un gap représentant la valeur entre deux calculs de complexe
+
+Chaque instance de la classe `Fractal` est initialisée à l'aide d'une instance de la classe `FractalBuilder` au moyen d'un **Pattern Builder**.
+
+On donne ensuite l'instance initialisée de la classe `Fractale` à la classe `FractalDesigner` qui s'occupe de découper cette image plusieurs parties puis de lancer une instance de `FractalThread` avec chaque partie.
+
+Ainsi, chaque partie de l'image est calculée séparément avant que cette image soit affichée ou enregistrée sur le disque.
 
 Soutenance du projet en janvier 2022.
