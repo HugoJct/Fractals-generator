@@ -14,7 +14,14 @@ https://youtu.be/0-2Azjd4g3U
 **Avec Gradle :**
 * ``./gradlew build`` pour compiler
 * ``./gradlew run`` pour executer le programme en interface graphique
-* ``./gradlew run --args="<args>"`` pour exécuter le programme en mode console en spécifiant les arguments 
+* ``./gradlew run --args="<args>"`` pour exécuter le programme en mode console en spécifiant les arguments
+
+**Liste des arguments**:
+* `-g <value>`: pour définir le gap
+* `-x0 <value>`: pour définir l'emplacement de la coordonnée x du coin inférieure gauche de l'ensemble de définition
+* `-x1 <value>`: pour définir l'emplacement de la coordonnée x du coin supérieur droit de l'ensemble de définition
+* `-y0 <value>`: pour définir l'emplacement de la coordonnée y du coin inférieure gauche de l'ensemble de définition
+* `-y1 <value>`: pour définir l'emplacement de la coordonnée y du coin supérieur droit de l'ensemble de définition
 
 ---
 
