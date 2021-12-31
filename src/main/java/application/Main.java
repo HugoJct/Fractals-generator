@@ -6,8 +6,7 @@ import org.apache.commons.cli.*;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Fractal;
-import model.FractalBuilder;
+import model.*;
 import view.ViewManager;
 
 public class Main extends Application {
@@ -55,7 +54,13 @@ public class Main extends Application {
             Double y0Arg = Double.parseDouble(cmd.getOptionValue("y0"));
             Double y1Arg = Double.parseDouble(cmd.getOptionValue("y1"));
 
-           	Fractal f = new FractalBuilder().buildJulia();
+            FractalDefinitionDomain d = new FractalDefinitionDomain(x0Arg,x1Arg,y0Arg,y1Arg);
+
+           	Fractal f = new FractalBuilder().setDefinitionDomain(d).setGap(gapArg).buildJulia();
+
+
+            FractalDesigner fd = new FractalDesigner(f);
+            fd.writeImage(fd.drawFractal());
             
             
             
