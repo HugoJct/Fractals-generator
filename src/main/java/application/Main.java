@@ -1,8 +1,13 @@
 package application;
 
+import java.text.ParseException;
+
+import org.apache.commons.cli.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+import model.Fractal;
+import model.FractalBuilder;
 import view.ViewManager;
 
 public class Main extends Application {
@@ -10,8 +15,63 @@ public class Main extends Application {
 	AutoCloseable controller;
 
 	public static void main(String[] args) {
+
+		Options options = new Options();
+
+        Option complex = new Option("c", "complex", true, "value of c in z^2+c");
+        complex.setRequired(false);
+        options.addOption(complex);
+
+        Option gap = new Option("g", "gap", true, "value of gap");
+        gap.setRequired(true);
+        options.addOption(gap);
+
+        Option x0 = new Option("x0", true, "x value of bottom left corner");
+        x0.setRequired(true);
+        options.addOption(x0);
+
+        Option x1 = new Option("x1", true, "x value of top right corner");
+        x1.setRequired(true);
+        options.addOption(x1);
+
+        Option y0 = new Option("y0", true, "y value of bottom left corner");
+        y0.setRequired(true);
+        options.addOption(y0);
+
+        Option y1 = new Option("y1", true, "y value of top right corner");
+        y1.setRequired(false);
+        options.addOption(y1);
+
+        CommandLineParser parser = new DefaultParser();
+        HelpFormatter formatter = new HelpFormatter();
+        CommandLine cmd = null;
+
+        try {
+            cmd = parser.parse(options, args);
+            
+            Double gapArg = Double.parseDouble(cmd.getOptionValue("gap"));
+            Double x0Arg = Double.parseDouble(cmd.getOptionValue("x0"));
+            Double x1Arg = Double.parseDouble(cmd.getOptionValue("x1"));
+            Double y0Arg = Double.parseDouble(cmd.getOptionValue("y0"));
+            Double y1Arg = Double.parseDouble(cmd.getOptionValue("y1"));
+
+           	Fractal f = new FractalBuilder().buildJulia();
+            
+            
+            
+        } catch (ParseException e) {
+            System.out.println(e.getMessage()+"\nsalut");
+            formatter.printHelp("utility-name", options);
+
+            System.exit(1);
+        }
+
+        System.exit(0);
+
+
+/*
 		TestLoadAverage.testCompute();
-		launch(args);
+		launch(args);*/
 	}
 
 	@Override
