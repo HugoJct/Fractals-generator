@@ -25,3 +25,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 mainClassName = 'application.Main'
+
+dependencies {
+	implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
+}
