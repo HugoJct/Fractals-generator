@@ -1,4 +1,5 @@
 *.backup
+./*.png
 
 ### Java ###
 *.class
@@ -6,4 +7,10 @@
 ### Gradle ###
 .gradle
 **/build/
+.metadata
 
+### Eclipse ###
+*.classpath
+*.project
+*.settings
+bin/
